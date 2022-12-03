@@ -8,8 +8,8 @@ public class damaged: SceneLinkedSMB<Charactercontrolelr>
     float timer;
     public override void OnSLStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        base.OnSLStateEnter(animator, stateInfo, layerIndex);
-
+        //base.OnSLStateEnter(animator, stateInfo, layerIndex);
+        Debug.Log("damaged");
         m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "dameged", false);
         m_MonoBehaviour.damagedMovement(true,1f);
         timer = 0f;

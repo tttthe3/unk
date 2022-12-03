@@ -25,7 +25,7 @@ using UnityEngine.Animations;
         {
             //m_MonoBehaviour.ForceNotHoldingGun();
             //m_MonoBehaviour.EnableMeleeAttack();
-            m_MonoBehaviour.SetHorizontalMovement(70f * 0.2f * 1f);
+            m_MonoBehaviour.SetHorizontalMovement(70f * 0.3f * 1f);
         m_MonoBehaviour.Effectmaker(effect1,effecthoise);
 
     }
@@ -55,7 +55,7 @@ using UnityEngine.Animations;
         }
         public override void OnSLStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-
+        m_MonoBehaviour.Attackendframe();
         timer = 0f;
            // m_MonoBehaviour.skeletonAnimation.timeScale = 1f;
         //  m_MonoBehaviour.DisableMeleeAttack();

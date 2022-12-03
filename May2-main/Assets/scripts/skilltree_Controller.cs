@@ -226,7 +226,7 @@ public class skilltree_Controller : MonoBehaviour
                 {
                     pickskill.gameObject.SetActive(false);
                     pickskill.transform.localScale = new Vector3(0.2f, 0.2f, 1);
-                    currentselect.GetComponent<skillicon>().Getskill().Setflag(true);
+                    currentselect.GetComponent<skillicon>().Getskill().Setflag(true); //スキル取得フラグを立てる（貯前スキルとってるかの確認）
                     DelaySetMovement2();
                     SkillManager.Instance.UseSkillpoint(currentselect.GetComponent<skillicon>().Getskill().Getneedpoint());
                     Debug.Log(SkillManager.Instance.GetSkillpoint());

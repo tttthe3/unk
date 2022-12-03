@@ -127,35 +127,7 @@ public class Slash_Componet1 : AttackWrapper
         }
 
     }
-    public override void Special_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set, SkeletonAnimation animation)
-    {
-
-        if (set == 1)
-        {
-
-
-            chargetime += Time.deltaTime;
-
-            if (chargetime < .9f)
-            {
-                damages.enabled = true;
-            }
-            else
-            {
-                animator.CrossFadeInFixedTime("idle", 0f);
-                damages.enabled = false;
-            }
-        }
-
-        else if (set == 2)
-        {
-
-        }
-        else if (set == 3)
-        {
-
-        }
-    }
+    
 
     public override void Air_Firstframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set, Transform parent)
     {

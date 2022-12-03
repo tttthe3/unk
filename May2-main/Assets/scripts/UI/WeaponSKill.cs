@@ -12,7 +12,15 @@ public class WeaponSKill : ScriptableObject
         Slash,Lans,Hunmer
     }
 
+    public enum Kindofskill
+    {
+        Passive,Active
+    }
 
+    public enum Combtype
+    {
+        First,midum,Finish
+    }
 
     public enum KindofSkill
     {
@@ -22,8 +30,13 @@ public class WeaponSKill : ScriptableObject
     [SerializeField]
     private KindofWeapon kindofWeapon;
 
+
+
     [SerializeField]
-    private KindofSkill kindofSkill;
+    private Kindofskill kindofSkill;
+    [SerializeField]
+    private Combtype COMB;
+
 
     [SerializeField]
     private string Skillname;
@@ -39,7 +52,10 @@ public class WeaponSKill : ScriptableObject
 
     [SerializeField]
     private int needpoint;
-    public KindofSkill GetKindofSkill()
+
+    [SerializeField]
+    private int CombNumber;
+    public Kindofskill GetKindofSkill()
     {
         return kindofSkill;
     }
@@ -47,6 +63,11 @@ public class WeaponSKill : ScriptableObject
     public KindofWeapon GetKindofWeapon()
     {
         return kindofWeapon;
+    }
+
+    public Combtype GetCOMB()
+    {
+        return COMB;
     }
 
     public string GetSKillname()
@@ -61,6 +82,11 @@ public class WeaponSKill : ScriptableObject
     public int Getneedpoint()
     {
         return needpoint;
+    }
+
+    public int GetCcombnumber()
+    {
+        return CombNumber;
     }
 
     public Image GetIcon()

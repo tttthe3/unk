@@ -10,9 +10,14 @@ public class SkillManager : MonoBehaviour
     public WeaponSKill[] Slash;
     public WeaponSKill[] Lans;
     public WeaponSKill[] Hunmer ;
-
+    public List<WeaponSKill> Current = new List<WeaponSKill>();
+    public List<Kama_Compo>  havelist_Comb = new List<Kama_Compo>();
     public int Skillpoint = 11;
-
+    public Kama_Compo[] defaultslash;
+    public Kama_Compo[] maf;
+    public Kama_Compo[] special;
+    public Kama_Compo[] chains;
+    public Dictionary<string,Kama_Compo[]> list = new Dictionary<string, Kama_Compo[]>();  //slash mafrer special twinの各コンボセット　stringが一致するものをcurrentに設定したりする
     [SerializeField]
     private List<WeaponSKill> haveitemList = new List<WeaponSKill>();
 
@@ -22,8 +27,10 @@ public class SkillManager : MonoBehaviour
         s_SkillBase = this;
         Debug.Log(Slash[0]);
         Skillpoint = 11;
-
-
+        list.Add("defaultslash",defaultslash);
+        list.Add("maf", maf);
+        list.Add("chains", chains);
+        list.Add("special", special);
     }
     public WeaponSKill GetSkill(string name)
     {
@@ -50,6 +57,30 @@ public class SkillManager : MonoBehaviour
     public void Add_SkillList(WeaponSKill skill)
     {
         haveitemList.Add(skill);
+    }
+
+    public void GetCurrentSKill(WeaponSKill skill)
+    {
+        Current.Add(skill);
+    }
+
+    public void RemoveCurrentSKill(WeaponSKill skill)
+    {
+        Current.Remove(skill);
+    }
+
+    public void AddCombs(string Wazamei,Kama_Compo[] combset)
+    {
+        
+        list.Add(Wazamei,combset);
+    }
+
+    public Kama_Compo[] GetCombs(string Wazamei)
+    {
+        list.TryGetValue(Wazamei, out Kama_Compo[] comb);
+
+        return comb;
+        
     }
 
 

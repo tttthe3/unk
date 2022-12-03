@@ -129,27 +129,9 @@ public class Lans_Componet : AttackWrapper
         }
 
     }
-    public override void Special_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set, SkeletonAnimation animation)
+    public override void Special_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
-        if (set == 1)
-        {
-            chargetime += Time.deltaTime;
-
-            if (chargetime > 1f)
-            {
-                animator.CrossFadeInFixedTime("idle", 0f);
-
-
-            }
-        }
-        else if (set == 2)
-        {
-
-        }
-        else if (set == 3)
-        {
-
-        }
+       
     }
 
     public override void Air_Firstframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set, Transform parent)

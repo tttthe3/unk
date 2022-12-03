@@ -61,6 +61,16 @@ using UnityEngine.Playables;
 
     }
 
+    public void Eventcall()
+    {
+        if (!finishflag.flag)
+        {
+            director.Play();
+            m_AlreadyTriggered = true;
+            OnDirectorPlay.Invoke();
+        }
+    }
+
         void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("play");

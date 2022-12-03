@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3363911162152103993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5930816058474448416}
+  - component: {fileID: 2433359109615927398}
+  m_Layer: 10
+  m_Name: SecondSlash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5930816058474448416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363911162152103993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1233.35, y: 33.86, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2433359109615927398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363911162152103993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ed3338b40075644bd73ddda94d560f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: 0
+  Weapons: []
+  WeaponName: 
+  Slash: {fileID: 0}
+  lance: {fileID: 0}
+  Humer: {fileID: 0}
+  nextattck: {fileID: 11400000, guid: 5ced09370dc019d4b9a71e786d4f27a1, type: 2}
+  damages: {fileID: 0}
+  chargetime: 0
+  sounds: {fileID: 7671285133027428168, guid: a931135d67c311a4ebe26f733d9a8330, type: 3}
+  Slash_first: {fileID: 0}
+  Slash_second: {fileID: 0}
+  Slash_Special: {fileID: 0}
+  slashself: []
+  Attack_Nestslash: {fileID: 5784393824101768041, guid: f3bb1b63cc4df844ab4e5e2090d82bdf,
+    type: 3}
+  Intract_Nestslash: {fileID: 0}
+  selfname: slash2
+  nextname: slash4
+  nextname2: 
+  Nextattackname: 

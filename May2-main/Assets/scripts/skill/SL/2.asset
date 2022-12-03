@@ -16,6 +16,6 @@ MonoBehaviour:
   kindofSkill: 0
   Skillname: 
   Information: 
-  getflag: 0
+  getflag: 1
   icon: {fileID: 0}
   needpoint: 5

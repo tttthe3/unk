@@ -17,7 +17,7 @@ public class damaged_turt : SceneLinkedSMB<EnemyBehaviour>
     {
         
         timer += Time.deltaTime;
-        if (timer > 1f)
+        if (timer > 1.3f)
         {
             m_MonoBehaviour.setidle();
             timer = 0f;
@@ -28,6 +28,8 @@ public class damaged_turt : SceneLinkedSMB<EnemyBehaviour>
            //m_MonoBehaviour.damagedfreez();
            // timer = 0f;
         }
+        m_MonoBehaviour.timerreset(timer);
+        
         //m_MonoBehaviour.setidle();
     }
 
@@ -35,7 +37,8 @@ public class damaged_turt : SceneLinkedSMB<EnemyBehaviour>
 
     public override void OnSLStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        m_MonoBehaviour.setidle();
+        m_MonoBehaviour.setreset();
+       // m_MonoBehaviour.setidle();
         timer = 0f;
     }
 }

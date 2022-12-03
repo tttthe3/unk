@@ -9,17 +9,13 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class Charactercontrolelr : MonoBehaviour
 {
-    public Damager slashdamger;
 
-    public enum talkstate { non, talk };
     private bool talktriger = false;
 
-    private talkstate state;
+    public Material argment;
     
     Vector3 playpos;
     static protected Charactercontrolelr s_charactercotroller;
-    GameObject cara;
-    private bool leftitemtrigger;
     protected float m_TanHurtJumpAngle;
     public float totalhealth;
     static public Charactercontrolelr CCInstance { get { return s_charactercotroller; } }
@@ -166,8 +162,20 @@ public class Charactercontrolelr : MonoBehaviour
     private bool walltrigger = false;
     //instantiateでaudioの下に追加していく、外した武器はdestroy
     private bool talk = false;
+
+
+
+
+
+    private ActionModule m_actionmodule;
+    private ActionModule currentmodule;
+    public ActionModule[] Allmodules;
+
+
     private void Awake()
     {
+        m_actionmodule = new ActionModule();
+        currentmodule = m_actionmodule;
         s_charactercotroller = this;
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -186,7 +194,6 @@ public class Charactercontrolelr : MonoBehaviour
     {
         effectpos.position = rb2d.transform.position;
 
-        state = talkstate.non;
         hurtJumpAngle = Mathf.Clamp(hurtJumpAngle, k_MinHurtJumpAngle, k_MaxHurtJumpAngle);
         m_TanHurtJumpAngle = Mathf.Tan(Mathf.Deg2Rad * hurtJumpAngle);
         playpos = rb2d.position;
@@ -207,10 +214,7 @@ public class Charactercontrolelr : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundcheck.position, groundradius, m_groundtype);
         RaycastHit2D hitss = Physics2D.Raycast(m_groundcheck.position, Vector2.down, wallcheckdis * 1f, m_groundtype);
 
-        //for (int i = 0; i < colliders.Length; i++)
-        //{
-        //   if (colliders[i].gameObject != gameObject)
-        //       isGround = true;
+        
     
         if (hitss) { isGround = true; }
 
@@ -220,9 +224,7 @@ public class Charactercontrolelr : MonoBehaviour
 
         if (pusher) pusher_check = true;
         else pusher_check = false;
-       //RaycastHit2D hit = Physics2D.Raycast(m_wallcheck.position, m_SpriteForward, wallcheckdis, m_walltype);
-        //RaycastHit2D hitback = Physics2D.Raycast(m_wallcheck.position, wallcheckdirectionback, wallcheckdis, m_walltype);
-        
+
 
         if (isGround)
         {
@@ -235,8 +237,6 @@ public class Charactercontrolelr : MonoBehaviour
         RaycastHit2D foots = Physics2D.Raycast(foot.position, m_SpriteForward, 1f);
 
 
-
-        //////////////////////////////////
         dash = false;
 
         if (m_SpriteForward.x > 0f)
@@ -244,8 +244,7 @@ public class Charactercontrolelr : MonoBehaviour
         else
             boxdirec = new Vector2(-1f, 0f);
 
-        //chainbox = Physics2D.BoxCast(m_chaincheck.position, boxsize, 0f, boxdirec, 25f, m_boxtype);
-
+       
         if (chainbox)
         {
             boxtrigger = true;
@@ -274,8 +273,7 @@ public class Charactercontrolelr : MonoBehaviour
             facecheck = true;
         if(Playerinput.Instance.Horizontal.Value == -1)
             facecheck = false;
-        if (state == talkstate.non)
-        {
+       
             if (Playerinput.Instance.Pause.Down)
             {
                     Debug.Log("fafea");
@@ -326,12 +324,7 @@ public class Charactercontrolelr : MonoBehaviour
                     UnpauseSave();
                 }
             }
-           
-
-            
-        }
-       
-
+          
     }
 
     public void Unpause()
@@ -355,6 +348,22 @@ public class Charactercontrolelr : MonoBehaviour
         StartCoroutine(UnSaveCoroutine());
 
     }
+
+    public void ActionFirstframs()
+    {
+        currentmodule.startFrame();
+    }
+
+    public void ActionUpdateframs()
+    {
+        currentmodule.UpdateFrame();
+    }
+
+    public void ActioEndframs()
+    {
+        currentmodule.EndFrame();
+    }
+
 
     public bool Gake()
     {
@@ -636,10 +645,6 @@ public class Charactercontrolelr : MonoBehaviour
         
     }
 
-    public void SetMovement(Vector2 newMovement)
-    {
-        rb2d.velocity = new Vector2(m_SpriteForward.x * newMovement.x, newMovement.y);
-    }
 
     public void DelaySetMovement(Vector3 newMovement, float delay)
     {
@@ -679,6 +684,11 @@ public class Charactercontrolelr : MonoBehaviour
     public void Attackupdateframe()
     {
         AttackWrapper.Instance.updateframe(rb2d,23f,animator,this.transform);
+    }
+
+    public void Attackendframe()
+    {
+        AttackWrapper.Instance.endframe(animator);
     }
     public void Attackfirstframe_air()
     {
@@ -822,7 +832,7 @@ public class Charactercontrolelr : MonoBehaviour
     public void PowerAttacksupdate()
     {
 
-        AttackWrapper.Instance.special_updateframe(rb2d, 2f, animator, 1,skeletonAnimation);
+        AttackWrapper.Instance.special_updateframe(rb2d, 2f, animator, this.transform);
 
     }
 
@@ -1225,15 +1235,18 @@ public class Charactercontrolelr : MonoBehaviour
 
     public void OnHurt(Damager damager, Damagerable damageable)
     {
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         Debug.Log("damega");
         //if the player don't have control, we shouldn't be able to be hurt as this wouldn't be fair
         if (!Playerinput.Instance.HaveControl)
             return;
-
-        rb2d.velocity = new Vector2(20f, 10f);
+        //argment.material.SetFloat("_Vector1",1f);
+        //argment.SetVector("_Vector1", new Vector2(0f,0f));
+        //rb2d.velocity = new Vector2(20f, 10f);
        totalhealth -= damager.damage;
         damageable.EnableInvulnerability();
         health.value = totalhealth;
+        if(!clipInfo[0].clip.name.Contains("slash"))
         animator.CrossFadeInFixedTime("dameged", 0f);
         Debug.Log(totalhealth);
         //we only force respawn if helath > 0, otherwise both forceRespawn & Death trigger are set in the animator, messing with each other.
@@ -1340,23 +1353,6 @@ public class Charactercontrolelr : MonoBehaviour
     public string GetSavepoint2()
     {
         return m_Lastsavepoint;
-    }
-
-
-    public void SetState(talkstate state)
-    {
-        this.state = state;
-
-        if (state == talkstate.talk)
-        {
-            rb2d.velocity = Vector2.zero;
-            Playerinput.Instance.ReleaseController(true);
-          
-        }
-    }
-    public talkstate GetState()
-    {
-        return state;
     }
 
     public void PlayFootstep()

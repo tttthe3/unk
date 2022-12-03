@@ -12,6 +12,8 @@ public class Weapon_Config : MonoBehaviour
     [SerializeField]
     GameObject[] ItemIcon;
     private enum Iconstate { Weapon,skill };
+    public enum States { None,Mainset,Subset,Skilltree}
+    public States states;
     Iconstate iconstate;
     int nowcolum = 0;
     int nowrow = 0;
@@ -28,18 +30,34 @@ public class Weapon_Config : MonoBehaviour
     GameObject Configpanel;
     private int cout = 0;
     private int cout1 = 0;
+    public GameObject currentselect;
+    public GameObject firstselect;
+    public GameObject currentMainselect;
+    public GameObject MaiselectText_Choice;
+    public GameObject MaiselectText_Skilltree;
+    private Transform defpos;
+    public GameObject Slector_Main;
+    public GameObject Slector_Sub;
 
+    public GameObject Skilltree;
 
+    private void Start()
+    {
+        states = States.None;
+        currentselect = firstselect;
+    }
     // Start is called before the first frame update
     void OnEnable()
     {
-        
+        currentselect = firstselect;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(currentselect.gameObject.name);
+        Debug.Log(states);
 
         if (Playerinput.Instance.Select_Hoz.Value == 1 && cout1 == 0)
         {
@@ -77,6 +95,7 @@ public class Weapon_Config : MonoBehaviour
         if (Playerinput.Instance.Select_Hoz.Value == 0)
             cout1 = 0;
 
+        
     }
 
     private void GetAllChildObject(GameObject parents)
@@ -93,35 +112,46 @@ public class Weapon_Config : MonoBehaviour
 
     public void OnClickUp()
     {
-        if (iconstate == Iconstate.Weapon)
+        if (states == States.None)
         {
-            if (0 < nowcolum && nowcolum <= ItemIcon.Length)
-            {
+            if (currentselect.GetComponent<EquipIcon>().Getupicon() == null)
+                return;
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0f);
+            currentselect = currentselect.GetComponent<EquipIcon>().Getupicon();
 
-                ItemIcon[nowcolum].GetComponent<Image>().DOPause();
-                ItemIcon[nowcolum].GetComponent<Image>().DOColor(Color.white, 0.1f); ;
-                nowcolum--;
-                Debug.Log(nowcolum);
-                ItemIcon[nowcolum].GetComponent<Image>().DOColor(Color.black, 1f).SetLoops(-1, LoopType.Yoyo);
-                // selfrect.position = new Vector3(currentpos.x+gridx, currentpos.y,currentpos.z);
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
+            defpos = currentselect.transform;
+            currentselect.GetComponent<Image>().DOColor(Color.black, 0.4f).SetLoops(-1, LoopType.Yoyo);
+        }
+        if (states == States.Mainset) 
+        {
+            currentMainselect.transform.position = MaiselectText_Choice.transform.position;
 
-            }
         }
         cout = 1;
     }
 
     public void OnClickDown()
     {
-        if (iconstate == Iconstate.Weapon)
+        if (states == States.None)
         {
-            if (0 <= nowcolum && nowcolum < ItemIcon.Length - 1)
-            {
-                ItemIcon[nowcolum].GetComponent<Image>().DOPause();
-                ItemIcon[nowcolum].GetComponent<Image>().DOColor(Color.white, 0.1f); ;
-                nowcolum++;
-                Debug.Log(nowcolum);
-                ItemIcon[nowcolum].GetComponent<Image>().DOColor(Color.black, 1f).SetLoops(-1, LoopType.Yoyo);
-            }
+            if (currentselect.GetComponent<EquipIcon>().Getdownicon() == null)
+                return;
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0f);
+            currentselect = currentselect.GetComponent<EquipIcon>().Getdownicon();
+
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
+            defpos = currentselect.transform;
+            currentselect.GetComponent<Image>().DOColor(Color.black, 0.4f).SetLoops(-1, LoopType.Yoyo);
+        }
+        if (states == States.Mainset)
+        {
+            currentMainselect.transform.position = MaiselectText_Choice.transform.position;
+
         }
         cout = 1;
 
@@ -129,66 +159,85 @@ public class Weapon_Config : MonoBehaviour
 
     public void OnClickRight()
     {
-        if (iconstate == Iconstate.skill)
-        {
-            if (0 <= nowrow && nowrow < Icons.Length - 1)
-            {
-
-
-                Icons[nowrow].GetComponent<Image>().DOPause();
-                Icons[nowrow].GetComponent<Image>().DOColor(Color.white, 0.1f); ;
-                nowrow++;
-                Icons[nowrow ].GetComponent<Image>().DOPause();
-                Icons[nowrow ].GetComponent<Image>().DOColor(Color.white, 0f);
-                Icons[nowrow].GetComponent<Image>().DOColor(Color.black, 1f).SetLoops(-1, LoopType.Yoyo);
-            }
-        }
+        if (currentselect.GetComponent<EquipIcon>().Getrighticon() == null)
+            return;
+        currentselect.GetComponent<Image>().DOPause();
+        currentselect.GetComponent<Image>().DOColor(Color.white, 0f);
+        currentselect = currentselect.GetComponent<EquipIcon>().Getrighticon();
+       
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
+            defpos = currentselect.transform;
+            currentselect.GetComponent<Image>().DOColor(Color.black, 0.4f).SetLoops(-1, LoopType.Yoyo);
+        
+        
         cout1 = 1;
 
     }
 
     public void OnClickLeft()
     {
-        if (iconstate == Iconstate.skill)
-        {
-
-            if (0 < nowrow && nowrow <= Icons.Length)
-            {
-
-
-
-                Icons[nowrow].GetComponent<Image>().DOPause();
-                Icons[nowrow].GetComponent<Image>().DOColor(Color.white, 0.1f); ;
-                nowrow--;
-                Icons[nowrow].GetComponent<Image>().DOPause();
-                Icons[nowrow].GetComponent<Image>().DOColor(Color.white, 0f);
-                Icons[nowrow].GetComponent<Image>().DOColor(Color.black, 1f).SetLoops(-1, LoopType.Yoyo);
-            }
-        }
+        if (currentselect.GetComponent<EquipIcon>().Getlefticon() == null)
+            return;
+        currentselect.GetComponent<Image>().DOPause();
+        currentselect.GetComponent<Image>().DOColor(Color.white, 0f);
+        currentselect = currentselect.GetComponent<EquipIcon>().Getlefticon();
+        
+            currentselect.GetComponent<Image>().DOPause();
+            currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
+            defpos = currentselect.transform;
+            currentselect.GetComponent<Image>().DOColor(Color.black, 0.4f).SetLoops(-1, LoopType.Yoyo);
+        
+       
         cout1 = 1;
 
     }
 
-    public void OnClickChoice()
+    //SCがONになっている＆スキルボックス全リストのうち、使うものを上書きする（差し替えは面倒）ゲームロード時はSCの装備有無を確認してから、並べ替え捜査にかける
+    public void OnClickChoice() //トリガースキルの状態のみ管理　残りポイントを見てcurrentkamaに追加する　各スキルのnextattacknameを変更する　SCの更新のみkamapの野良べ替えはattackwrapper
     {
-
-        if (iconstate == Iconstate.Weapon)
+        if (states == States.None)
         {
-            ItemIcon[nowcolum].transform.DOMoveX(ItemIcon[nowcolum].transform.position.x-90f,0.2f);
-            iconstate = Iconstate.skill;
-            GetAllChildObject(ItemIcon[nowcolum]);
-            Debug.Log(Icons.Length);
+            if (currentselect.GetComponent<EquipIcon>().GetIcontypee() == EquipIcon.Icontyepe.Main)
+            {
+                Slector_Main.transform.position = currentselect.transform.position;
+                 Slector_Main.SetActive(true);
+                states = States.Mainset;
+                Debug.Log(states);
+
+            }
+            if(currentselect.GetComponent<EquipIcon>().GetIcontypee() == EquipIcon.Icontyepe.Sub)
+            {
+
+            }
+
         }
-        else
+        if(states == States.Mainset)
         {
-            AttackWrapper.Instance.WeaponSetter(ItemIcon[nowcolum].gameObject.name);
-            //スキルセット
+            if(currentMainselect.transform.position == MaiselectText_Choice.transform.position)
+            {
+                //アタックセット
+                Debug.Log("items");
+                AttackWrapper.Instance.WeaponSetter(currentselect.GetComponent<EquipIcon>().Getskillnamel());
+                states = States.None;
+                currentMainselect.SetActive(false);
+            }
 
+            if (currentMainselect.transform.position == MaiselectText_Skilltree.transform.position)
+            {
+                //スキルツリー開く
+                Skilltree.SetActive(true);
+                states = States.Skilltree;
+            }
         }
-
-
+        if(states == States.Subset)
+        {
+            //アイテム設定
+        }
 
     }
+
+    
 
     void fadeout(int rest)
     {
@@ -206,12 +255,12 @@ public class Weapon_Config : MonoBehaviour
 
     private void OnDisable()
     {
-        ItemIcon[nowcolum].GetComponent<Image>().DOPause();
-        Icons[nowrow].GetComponent<Image>().DOPause();
+        //ItemIcon[nowcolum].GetComponent<Image>().DOPause();
+        //Icons[nowrow].GetComponent<Image>().DOPause();
         nowcolum = 0;
         nowrow=0;
         iconstate =Iconstate.Weapon;
-
+        currentMainselect.SetActive(false);
 
     }
 

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-using System;
 using UnityEngine.UI;
 using DG.Tweening;
 using Spine.Unity;
 using Spine;
+
 #endif
 public class EnemyBehaviour : MonoBehaviour
 {
-
-    　　public DirectorTtrigger special; //ダウン時に再生する
+    public GEMool bulletPool;
+    public int gemcount=1;
+    public DirectorTtrigger special; //ダウン時に再生する
     
         static Collider2D[] s_ColliderCache = new Collider2D[16];
     private bool second;
@@ -26,12 +27,12 @@ public class EnemyBehaviour : MonoBehaviour
         public float speed;
         public float gravity = 10.0f;
         public Material currentmat;
-        [Header("References")]
-        [Tooltip("If the enemy will be using ranged attack, set a prefab of the projectile it should use")]
-        //public Bullet projectilePrefab;
+    [Header("References")]
+    [Tooltip("If the enemy will be using ranged attack, set a prefab of the projectile it should use")]
+    //public Bullet projectilePrefab;
 
-        [Header("Scanning settings")]
-       
+    [Header("Scanning settings")]
+  
         [Range(0.0f, 360.0f)]
         public float viewDirection = 0.0f;
         [Range(0.0f, 360.0f)]
@@ -100,10 +101,18 @@ public class EnemyBehaviour : MonoBehaviour
        
         protected readonly int m_HashShootingPara = Animator.StringToHash("Shooting");
         public string Plusstatename;
-       
+       private bool damagereset=false;
        
         public bool armers;
-        private void Awake()
+    public GameObject Element;
+    public int elementnumbner;
+    GameObject[] elements;
+    GameObject elements2;
+    public Transform elementgoal;
+    public RectTransform jemparent;
+    public Camera jemcamera;
+
+    private void Awake()
         {
             m_CharacterController2D = GetComponent<CharacterController2D>();
             m_Collider = GetComponent<Collider2D>();
@@ -229,7 +238,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Vector3 targetvelocity = new Vector2(1f * 23f, rb2d.velocity.y);
         //rb2d.velocity = Vector3.SmoothDamp(rb2d.velocity, targetvelocity, ref velocity, 0.05f);
-        rb2d.velocity = new Vector2(m_SpriteForward.x* 11f, 0f);
+        rb2d.velocity = new Vector2(m_SpriteForward.x* 3f, 0f);
         Debug.Log("walk");
         //rb2d.gravityScale = 6f;
         //rb2d.velocity = new Vector2(transform.localScale.x * maxSpeed*Playerinput.Instance.Horizontal.Value*speedScale, 0);　地面移動
@@ -524,9 +533,12 @@ public class EnemyBehaviour : MonoBehaviour
             //dieAudio.PlayRandomSound();
 
             m_Dead = true;
-            //m_Collider.enabled = false;
+        //m_Collider.enabled = false;
+
+        //CameraShaker.Shake(0.15f, 0.3f);
         
-            //CameraShaker.Shake(0.15f, 0.3f);
+
+
         }
 
         public void Hit(Damager damager, Damagerable damageable)
@@ -534,16 +546,22 @@ public class EnemyBehaviour : MonoBehaviour
             if (damageable.CurrentHealth <= 0)
                 return;
 
-        
+        AnimatorClipInfo[] clipInfo = m_Animator.GetCurrentAnimatorClipInfo(0);
+        if (clipInfo[0].clip.name == "Zon_damaged")
+        {
+            Debug.Log("hittt");
+            damagereset = true;
+        }
         //m_Animator.SetTrigger(m_HashHitPara);
         damaged = true;
         m_Animator.CrossFadeInFixedTime(Plusstatename+"damaged",0f);
         setSKelAnimation("damaged");
         Vector2 throwVector = new Vector2(8f, 2.0f);
-            Vector2 damagerToThis = damager.transform.position - transform.position;
+         Vector2 damagerToThis = damager.transform.position - transform.position;
 
-            throwVector.x = Mathf.Sign(damagerToThis.x) * -5.0f;
+            throwVector.x = Mathf.Sign(damagerToThis.x) * -4.0f;
             m_MoveVector = throwVector;
+        Debug.Log("count");
         rb2d.AddForce(throwVector,ForceMode2D.Impulse);
             if (m_FlickeringCoroutine != null)
             {
@@ -555,6 +573,70 @@ public class EnemyBehaviour : MonoBehaviour
             CameraShaker.Shake(0.15f, 0.3f);
        
         }
+
+        public void GetPowergage()
+    {
+        Debug.Log("jem");
+        
+      
+            
+   
+        elements2 = Instantiate(Element, this.gameObject.transform.position, Quaternion.identity);
+
+        DOTween.Sequence().Append(elements2.transform.DOLocalMove(new Vector3(elements2.transform.position.x + Random.Range(2, 2), elements2.transform.position.y + Random.Range(2, 2), elements2.transform.position.z), .2f, false))
+                              .SetDelay(0.7f)
+                              .Append(elements2.transform.DOMove(elementgoal.position, 0.1f))
+                              .Join(elements2.transform.DOScale(new Vector3(0f,0f,0f),0.1f))
+                              .Append(DOVirtual.DelayedCall(0f, () => Clearelement(), false));
+        
+    }
+    public void GetPowergage2()
+    {
+        for(int i = 0; i < gemcount; i++)
+        {
+            GEMObject bullets = bulletPool.Pop(this.gameObject.transform.position);
+        }
+        //GEMObject bullet = bulletPool.Pop(this.gameObject.transform.position);
+       /// GEMObject bullet2 = bulletPool.Pop(this.gameObject.transform.position);
+       // GEMObject bullet4 = bulletPool.Pop(this.gameObject.transform.position);
+       
+    }
+        public void moveelement()
+    {
+        for (int i = 0; i > elementnumbner; i++)
+        {
+            DOTween.Sequence().Append(elements[i].transform.DOLocalMove(new Vector3(elements[i].transform.position.x + Random.Range(2, 4), elements[i].transform.position.y + Random.Range(2, 4), elements[i].transform.position.z), 2f, false))
+                              .SetDelay(1f)
+                              .Append(elements[i].transform.DOMove(elementgoal.position, 2f))
+                              .Append(DOVirtual.DelayedCall(0f, () => Clearelement(), false));
+        }
+    }
+
+    public void Clearelement()
+    {
+        elements2 = null;
+        Destroy(elements2);
+    }
+
+    public void convertpos()
+    {
+
+    }
+    
+
+    public void timerreset(float current)
+    {
+        if (damagereset)
+        {
+            Debug.Log("hittt");
+            current = 0f;
+        }
+    }
+
+    public void setreset()
+    {
+        damagereset = false;
+    }
 
     public void setidle()
     {
