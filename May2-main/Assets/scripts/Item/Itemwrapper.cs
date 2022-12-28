@@ -18,7 +18,7 @@ public class Itemwrapper : MonoBehaviour
 
     public virtual void FixedUpdate() { }
    
-    public virtual void  firstframeLeft(Rigidbody2D rb2d, Animator animator)
+    public virtual void  firstframeLeft(Rigidbody2D rb2d, Animator animator, Transform parent)
     {
        
 

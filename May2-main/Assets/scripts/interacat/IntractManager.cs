@@ -11,6 +11,10 @@ public class IntractManager : MonoBehaviour
     private InteractWrapper[] Itemlist;
     private InteractWrapper currentitem;
 
+
+    [SerializeField]
+    private Dictionary<string, InteractWrapper> Itemsetter = new Dictionary<string, InteractWrapper>(); 
+
     private bool push_trigger = false;
     private bool Laddr_trigger = false;
     private bool evevate = false;
@@ -21,69 +25,44 @@ public class IntractManager : MonoBehaviour
     {
         currentitem = null;
         s_Intract = this;
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "push")
-        {
-            PushObject objects = collision.GetComponent<PushObject>();
-            if (objects)
-            {
-                push_trigger = true;
-                currentitem = Itemlist[0];
 
-            }
-            //else push_trigger = false;
-        }
-        
-
-        if (collision.gameObject.tag == "elevate")
-        {
-            PushObject objects = collision.GetComponent<PushObject>();
-            if (objects)
-            {
-                evevate = true;
-            }
-            else evevate = false;
-        }
-
-        if (collision.gameObject.tag == "laddr")
-        {
-            Laddr_trigger = true;
-            currentitem = Itemlist[1];
-
-        }
-        
+        Itemsetter.Add("push",Itemlist[0]);
+        Itemsetter.Add("ladder", Itemlist[1]);
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "laddr")
-        {
-            Laddr_trigger = false;
 
-        }
-        if (collision.gameObject.tag == "push")
-        {
-            push_trigger = false;
-        }
 
-      }
     private void FixedUpdate()
     {
 
-        if (push_trigger)
+       // if (push_trigger)
         {
-            currentitem = Itemlist[0];
+       //     currentitem = Itemlist[0];
 
         }
-        else if (Laddr_trigger)
+    //    else if (Laddr_trigger)
         {
-            currentitem = Itemlist[1];
+      //      currentitem = Itemlist[1];
         }
-        else
-        { currentitem = null; }
+       // else
+       // { currentitem = null; }
+    }
+
+    public void SetIntractItem(string name)
+    {
+        Itemsetter.TryGetValue(name, out InteractWrapper comb);
+
+        if (comb == null)
+            return ;
+
+        currentitem = comb;
+       
+    }
+
+    public void SetnullItem()
+    {
+        currentitem = null;
     }
 
     public string getIntractname()

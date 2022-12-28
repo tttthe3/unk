@@ -33,8 +33,9 @@ public class run : SceneLinkedSMB<Charactercontrolelr>
             m_MonoBehaviour.jumpup();
         }
 
-        
-        
+       
+
+
         else if (m_MonoBehaviour.CheckForMeleeAttackInput())
             m_MonoBehaviour.MeleeAttack();
 
@@ -43,10 +44,10 @@ public class run : SceneLinkedSMB<Charactercontrolelr>
 
             m_MonoBehaviour.Dashmove();
         }
+        
 
-       
 
-       // m_MonoBehaviour.powerslope();
+        // m_MonoBehaviour.powerslope();
         if (m_MonoBehaviour.IsFalling() && !m_MonoBehaviour.CheckForGrounded())
         {
             Debug.Log("fall");

@@ -21,6 +21,8 @@ MonoBehaviour:
     colidtag: 
     target: {fileID: 0}
   state: 0
+  brreaktype:
+    target: {fileID: 0}
   referenceflag: []
   reference_listnumber: 
   selfname: 

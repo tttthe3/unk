@@ -23,8 +23,12 @@ public class idle : SceneLinkedSMB<Charactercontrolelr>
     {
         
         m_MonoBehaviour.GroundedHorizontalMovement(true, 1.4f);
-    
-        if(m_MonoBehaviour.CheckForGurdInput())
+        if (m_MonoBehaviour.Checkinputfallthrouh())
+        {
+            m_MonoBehaviour.fallthrougdound();
+            return;
+        }
+        if (m_MonoBehaviour.CheckForGurdInput())
         m_MonoBehaviour.gurd();
         
         m_MonoBehaviour.Gravi3();

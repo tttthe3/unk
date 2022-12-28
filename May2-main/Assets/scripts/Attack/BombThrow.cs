@@ -20,7 +20,7 @@ public class BombThrow :Itemwrapper
     private Transform hand;
     // Start is called before the first frame update
     private bool lefttrigger = false;
-    public override void  firstframeLeft(Rigidbody2D rb2d, Animator animator)
+    public override void  firstframeLeft(Rigidbody2D rb2d, Animator animator, Transform parent)
     {
         lefttrigger = true;
         firstvector = new Vector3(0,0,0);

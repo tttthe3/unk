@@ -13,7 +13,9 @@ public class Charactercontrolelr : MonoBehaviour
     private bool talktriger = false;
 
     public Material argment;
-    
+
+    private string localstate;
+
     Vector3 playpos;
     static protected Charactercontrolelr s_charactercotroller;
     protected float m_TanHurtJumpAngle;
@@ -163,9 +165,9 @@ public class Charactercontrolelr : MonoBehaviour
     //instantiateでaudioの下に追加していく、外した武器はdestroy
     private bool talk = false;
 
-
-
-
+    private RaycastHit2D hit2;
+    private RaycastHit2D hit3;
+    private bool ishead;
 
     private ActionModule m_actionmodule;
     private ActionModule currentmodule;
@@ -210,15 +212,16 @@ public class Charactercontrolelr : MonoBehaviour
 
         bool wasGrounded = isGround;
         isGround = false;
+        ishead = false;
         isWall = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundcheck.position, groundradius, m_groundtype);
         RaycastHit2D hitss = Physics2D.Raycast(m_groundcheck.position, Vector2.down, wallcheckdis * 1f, m_groundtype);
+        hit2 = hitss;
+        hit3 = Physics2D.Raycast(head.position, Vector2.up, 1f, m_groundtype);
 
-        
-    
         if (hitss) { isGround = true; }
 
-
+        if (hit3) { ishead = true;  }
         
          RaycastHit2D pusher = Physics2D.Raycast(m_wallcheck.position, m_SpriteForward,  1f, pushtype);
 
@@ -236,6 +239,7 @@ public class Charactercontrolelr : MonoBehaviour
         RaycastHit2D bodys = Physics2D.Raycast(body.position, m_SpriteForward, 1f);
         RaycastHit2D foots = Physics2D.Raycast(foot.position, m_SpriteForward, 1f);
 
+       
 
         dash = false;
 
@@ -653,7 +657,7 @@ public class Charactercontrolelr : MonoBehaviour
         var tween2 = this.transform.DOLocalMove(new Vector3(0f,2f,0f)+ rb2d.transform.position, 0.2f);
         var tween3 = this.transform.DOLocalMove(new Vector3(9f, -1f,0f) + rb2d.transform.position, 0.3f);
         DOTween.Sequence().Append(tween1).SetDelay(1).Append(tween3);
-        Debug.Log("444");
+       
     }
 
     public void Dashmove()
@@ -676,13 +680,31 @@ public class Charactercontrolelr : MonoBehaviour
 
     }
 
+    public void ModeChange()
+    {
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        if (clipInfo[0].clip.name == "idle"|| clipInfo[0].clip.name == "run")
+        {
+            if(Playerinput.Instance.Skill.Held&& Playerinput.Instance.Skill2.Held)
+            {
+                if (PowerGage_Manager.Instance.Getcurrentpower().x == 0)
+                {
+                    animator.CrossFadeInFixedTime("modechange", 0f);
+                }
+            }
+        }
+    }
+
     public void Attackfirstframe()
     {
+       
         AttackWrapper.Instance.firstframe(rb2d,3f,animator,this.gameObject.transform);
+        
     }
 
     public void Attackupdateframe()
     {
+       
         AttackWrapper.Instance.updateframe(rb2d,23f,animator,this.transform);
     }
 
@@ -696,7 +718,7 @@ public class Charactercontrolelr : MonoBehaviour
     }
     public void Attackupdatefram_air()
     {
-        AttackWrapper.Instance.Air_updateframe(rb2d, 2f, animator, 1);
+        AttackWrapper.Instance.Air_updateframe(rb2d, 2f, animator, this.gameObject.transform);
     }
 
     public void idleset()
@@ -778,6 +800,41 @@ public class Charactercontrolelr : MonoBehaviour
     {
         return Playerinput.Instance.Skill2.Down;
         
+    }
+
+    public bool Checkinputfallthrouh()
+    {
+        return Playerinput.Instance.Jump.Down && Playerinput.Instance.Select_Vert.Value<0f ;
+    }
+
+    public void fallthrougdound()
+    {
+        if (isGround) {
+            if (hit2.collider.GetComponent<PlatformEffector2D>())
+                hit2.collider.GetComponent<PlatformEffector2D>().rotationalOffset = 180f;
+            return;
+        }
+        
+
+    }
+
+    public void upthrouground()
+    {
+        if (ishead)
+        {
+            Debug.Log("through");
+            if (hit3.collider.GetComponent<PlatformEffector2D>())
+            {
+                Debug.Log("through2");
+                hit3.collider.GetComponent<PlatformEffector2D>().rotationalOffset = 0f;
+                rb2d.AddForce(new Vector2(0f, 10f));
+            }
+        }
+    }
+
+    public void liftuo()
+    {
+        rb2d.AddForce(new Vector2(0f,10f));
     }
 
     public void MeleeAttack()
@@ -961,12 +1018,7 @@ public class Charactercontrolelr : MonoBehaviour
         if ((Playerinput.Instance.Horizontal.Value == 0f))
             animator.CrossFadeInFixedTime("idle", 0f);
     }
-    public void MakeIdle()
-    {
-        rb2d.velocity = new Vector2(0f,0f);
-        animator.CrossFadeInFixedTime("idle", 0f);
-       
-    }
+   
 
     public void idletorun()
     {
@@ -988,17 +1040,6 @@ public class Charactercontrolelr : MonoBehaviour
             animator.CrossFadeInFixedTime("run", 0f);
         }
 
-    }
-
-    public void laddercheck()
-    {
-        if(!ladders&&!while_ladders)
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                while_ladders = true;
-                rb2d.gravityScale = 0f;
-                animator.CrossFadeInFixedTime("ladder3", 0f);
-            }
     }
 
     public void ladderchange()

@@ -37,7 +37,7 @@ public class People : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Talkmanage.Instance.Gettalkender());
+
         if (speechBubbleOb == null) return;
         float disToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (disToPlayer < 2.5f && speechBubbleOb.activeSelf == false)
@@ -62,7 +62,7 @@ public class People : MonoBehaviour
         if (disToPlayer >= 2.5f && speechBubbleOb.activeSelf == false)
         {
             Talkmanage.Instance.Settalkender(true);
-            Debug.Log(Talkmanage.Instance.Gettalkender());
+
             //Talkmanage.Instance.CloseMessageWindow();
         }
 

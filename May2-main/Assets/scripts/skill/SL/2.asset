@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kindofWeapon: 0
   kindofSkill: 0
+  COMB: 0
   Skillname: 
   Information: 
   getflag: 1
   icon: {fileID: 0}
   needpoint: 5
+  CombNumber: 0

@@ -20,6 +20,7 @@ public class EquipIcon : MonoBehaviour
     public WeaponSKill triggerskill;
     public string skillname;
     public Image selfImage;
+    public GameObject myskilltree;
         private void OnEnable()
         {
             //トリガーとなるスキルを持ってたら色は変えないが選択可能にする。ポイントの質問が出る
@@ -60,6 +61,12 @@ public class EquipIcon : MonoBehaviour
     {
 
         return upicon;
+    }
+
+    public GameObject Getskilltree()
+    {
+
+        return myskilltree;
     }
 
 

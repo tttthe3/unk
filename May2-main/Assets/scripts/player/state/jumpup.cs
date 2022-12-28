@@ -72,6 +72,8 @@ public class jumpup : SceneLinkedSMB<Charactercontrolelr>
         if (m_MonoBehaviour.Gake())
             m_MonoBehaviour.Gakegrap();
 
+        m_MonoBehaviour.upthrouground();
+
         //m_MonoBehaviour.grapplestart();
     }
     public override void OnSLStatePreExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

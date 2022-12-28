@@ -20,6 +20,7 @@ public class ladderup : SceneLinkedSMB<Charactercontrolelr>
     public override void OnSLStateNoTransitionUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         m_MonoBehaviour.intractUpdate();
+        m_MonoBehaviour.upthrouground();
     }
     public override void OnSLStatePreExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

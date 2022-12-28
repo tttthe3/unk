@@ -157,20 +157,8 @@ public class Lans_Componet : AttackWrapper
         }
     }
 
-    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set)
+    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
-        if (set == 1)
-        {
-            if (Charactercontrolelr.CCInstance.CheckForGrounded())
-                animator.CrossFadeInFixedTime("air_lans2", 0f);
-        }
-        else if (set == 2)
-        {
-
-        }
-        else if (set == 3)
-        {
-
-        }
+        
     }
 }

@@ -8,7 +8,33 @@ public class PushObject : MonoBehaviour
     public BoxCollider2D col;
     public Rigidbody2D rb2d;
     public Transform targetpos;
-   public void pushs()
+    private bool HitPlayer;
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag=="Player")
+        {
+            collision.GetComponent<IntractManager>().SetIntractItem("push");
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<IntractManager>().SetIntractItem("push");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.GetComponent<IntractManager>().SetnullItem();
+        }
+
+    }
+    public void pushs()
     {
        
 ;        if (Charactercontrolelr.CCInstance.GetAniState("push")) 
@@ -39,5 +65,9 @@ public class PushObject : MonoBehaviour
             rb2d.velocity = new Vector3(0f, curent.y, 0f);
         }
     }
-    
+ 
+    public void callIntractmanager()
+    {
+            } 
+
 }

@@ -24,7 +24,7 @@ public class Boss1 : MonoBehaviour
         public int bossHP = 15;
         public int shieldHP = 10;
     }
-    
+    public BoxCollider2D colid;
     public Transform target;
     public Animator anima;
     public Playable director;
@@ -57,7 +57,8 @@ public class Boss1 : MonoBehaviour
     public AudioClip startRound2Clip;
     public AudioClip startRound3Clip;
     public AudioClip deathClip;
-
+    public Color damagedC;
+    public Color defaultC;
 
     public AudioSource punchsound;
     public AudioSource backsound;
@@ -98,7 +99,7 @@ public class Boss1 : MonoBehaviour
 
     void start()
     {
-        
+        defaultC = skeletonAnimation.skeleton.GetColor();
         s_boss1 = this;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         rb2d.GetComponent<Rigidbody2D>();
@@ -143,26 +144,38 @@ public class Boss1 : MonoBehaviour
                         BT.Root().OpenBranch(
                             BT.AniChange(animator, "punch"),
                             BT.Call(effectpunch),
-                            BT.Wait(2f),
+                            BT.Wait(3f),
                             BT.AniChange(animator, "idle"),
-                            BT.Wait(2f)
+                            BT.Wait(1f)
                             ),
                         BT.Repeat(laserStrikeCount).OpenBranch(
                             BT.AniChange(animator, "kick"),
                             BT.Wait(beamDelay),
+                            BT.Call(Kicks),
                             BT.Wait(delay),
                             BT.AniChange(animator, "idle"),
-                            BT.Wait(2f)
+                            BT.Wait(1f)
                         ),
                         BT.Root().OpenBranch(
-                            BT.AniChange(animator, "tukkle"),
-                            BT.Wait(lightningDelay),
-                            BT.Wait(lightningTime),
+                            BT.AniChange(animator, "jump"),
+                            BT.Call(Jump1),
                             BT.Wait(delay),
-                            BT.AniChange(animator, "idle"),
-                            BT.Wait(2f)
-                        )         
-
+                            BT.AniChange(animator, "jump2"),
+                            BT.Call(Jump2),
+                            BT.Wait(2f),
+                            BT.Call(Jump3),
+                            BT.AniChange(animator, "idle")
+                        ),
+                          BT.Root().OpenBranch(
+                            BT.AniChange(animator, "jump"),
+                            BT.Call(Jump1),
+                            BT.Wait(delay),
+                            BT.AniChange(animator, "jump2"),
+                             BT.Call(Jump2),
+                            BT.Wait(2f),
+                            BT.Call(Jump3),
+                            BT.AniChange(animator, "idle")
+                        )
 
                     ) //行動ループ
                  //トリガー
@@ -186,9 +199,7 @@ public class Boss1 : MonoBehaviour
                             BT.Call(effectstamp),
                             BT.Wait(2f),
                             BT.AniChange(animator, "punch"),
-                            BT.Call(FireLaser)
-                            
-                            
+                            BT.Call(FireLaser)      
                         ),
                         BT.Root().OpenBranch(
                             BT.AniChange(animator, "tukkle"),
@@ -265,11 +276,11 @@ public class Boss1 : MonoBehaviour
 
         if (faceLeft)
         {
-            SetFacingData(1);
+            SetFacingData(-1);
         }
         else if (faceRight)
         {
-            SetFacingData(-1);
+            SetFacingData(1);
         }
     }
 
@@ -542,6 +553,8 @@ public class Boss1 : MonoBehaviour
         damageshake = true;
         m_CurrentHealth -= damager.damage;
         healthSlider.value = m_CurrentHealth;
+        StartCoroutine(damagecolor());
+
         //healthSlider2.value = Mathf.MoveTowards(m_CurrentHealth + damager.damage, m_CurrentHealth, Time.deltaTime * 1f);
         //rb2d.transform.localPosition = rb2d.transform.localPosition + new Vector3(Mathf.PerlinNoise(Time.time + 1f,0), Mathf.PerlinNoise(Time.time + 1f,0), Mathf.PerlinNoise(Time.time + 1f,0))*0.2f;
         //rb2d.transform.DOShakePosition(0.1f, 0.5f, 3, 1, false, true);
@@ -556,13 +569,45 @@ public class Boss1 : MonoBehaviour
         damageable.DisableInvulnerability();
     }
 
-    public void ShieldHit()
+    public void Kicks()
     {
-       
+        UpdateFacing();
+        skeletonAnimation.AnimationState.SetAnimation(0, "kick", false);
+    }
+
+    IEnumerator   damagecolor()
+    {
+        skeletonAnimation.skeleton.SetColor(new Color(1f, 0f, 0f, .6f));
+        yield return new WaitForSeconds(.4f);
+        skeletonAnimation.skeleton.SetColor(new Color(1f, 1f, 1f, 1f));
+    }
+
+    public void Jump1()
+    {
+        UpdateFacing();
+        DOTween.Sequence().SetDelay(1.1f)
+                          .Append(DOVirtual.DelayedCall(0f, () => rb2d.AddForce(new Vector2(50f * (target.transform.position.x - rb2d.transform.position.x), 1520f)), false));
+        skeletonAnimation.AnimationState.SetAnimation(0, "jump", false);
+    }
+
+    public void Jump2()
+    {
+        UpdateFacing();
+        Debug.Log("hits");
+        rb2d.AddForce(new Vector2(0f, -10950f));
+        skeletonAnimation.AnimationState.SetAnimation(0, "jump2", false);
+        colid.size = new Vector2(8f,9f);
+    }
+
+    public void Jump3()
+    {
+        colid.size = new Vector2(8f, 14f);
     }
 
     public void effectpunch()
     {
+        UpdateFacing();
+        skeletonAnimation.AnimationState.SetAnimation(0, "punch", false);
         var p= Instantiate(punch);
         p.transform.position = punchpos.position;
         punchsound.PlayDelayed(1.5f);

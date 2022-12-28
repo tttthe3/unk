@@ -53,7 +53,7 @@ public class FIrstSlash : Kama_Compo
                         
                         Debug.Log("fat");
                         //Setstatechage(nextcompo);
-                        nextcompo = Attack_Nestslash;
+                       
                         currenttime = 0;
                         animator.CrossFadeInFixedTime("slash2", 0f);
                         damagess.enabled = false;

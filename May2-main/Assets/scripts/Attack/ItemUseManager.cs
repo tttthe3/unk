@@ -73,7 +73,7 @@ public class ItemUseManager : MonoBehaviour
     {
         if (Leftcurrentitem == null)
             return;
-            Leftcurrentitem.firstframeLeft(rb2d,animator);
+            Leftcurrentitem.firstframeLeft(rb2d,animator,this.gameObject.transform);
 
     }
     public  void UpdateframeLeft(Rigidbody2D rb2d, Animator animator)

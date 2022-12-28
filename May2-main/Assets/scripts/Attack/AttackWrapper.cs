@@ -13,29 +13,25 @@ public class AttackWrapper : MonoBehaviour
     private Slasher1 slash= new Slasher1();
     private Lans1 lans = new Lans1();
     private  CreateItem currentitem;
-    private AttackWrapper curretAttack=null; //丸ごと保存できるか後で検証
+    private  AttackWrapper curretAttack; //丸ごと保存できるか後で検証
     public AttackWrapper[] Weapons;
 
     static public AttackWrapper Instance { get { return s_attack; } }
     static protected AttackWrapper s_attack;
-    public string WeaponName;
-    public Damager Slash;
-    public Damager lance;
-    public Damager Humer;
-    private void Awake()
+
+    private  void Awake()
     {
         s_attack = this;
-        
+
+        Debug.Log(curretAttack);
         set = Itemset.none;
         
     }
 
-    public void Start()
+      void Start()
     {
-        Debug.Log(curretAttack);
-        Slash.enabled = false;
-        lance.enabled = false;
-        Humer.enabled = false;
+       
+       
         //damaegeg.enabled = false;
     }
     public void WeaponSetter(string ItemName)
@@ -51,14 +47,18 @@ public class AttackWrapper : MonoBehaviour
               
                     curretAttack = Weapons[0]; //ここでdamagerとる
                 curretAttack.GetComponent<Kama_Compo>().slashself = SkillManager.Instance.GetCombs(ItemName);
+                 curretAttack.GetComponent<Kama_Compo>().air_slashself = SkillManager.Instance.air_GetCombs(ItemName);
         //    }
 
-      //  }
+        //  }
 
-        Debug.Log(curretAttack);
+        Debug.Log(curretAttack.GetComponent<Kama_Compo>().slashself);
+        Debug.Log(SkillManager.Instance.GetCombs(ItemName));
         Debug.Log(ItemDataBase.Instance.HasItem(ItemName));
 
     }
+
+
 
     public void Setcombset()
     {
@@ -66,22 +66,7 @@ public class AttackWrapper : MonoBehaviour
     }
 
     //ファーストアタックならslashself[0]を差し替え、2~4撃目ならコンボ増加数を見てupdatestate内の名前を書き換える＆slashselfの順番を変更する　フィニッシュならコンボ数＝に代入
-    public void FIrstCombset(string Skillname) //必要な情報：コンボ最大数、フィニッシュ以外なら、次の攻撃の名前変更
-    {
-        for (int i = 0; i < curretAttack.GetComponent<Kama_Compo>().slashself.Length; i++) {
-            if (curretAttack.GetComponent<Kama_Compo>().slashself[i].WeaponName == Skillname)
-                curretAttack.GetComponent<Kama_Compo>().C_slashself[0] = curretAttack.GetComponent<Kama_Compo>().slashself[i];
-                    }
-    }
 
-    public void MidumCombset(string Skillname) //必要な情報：コンボ最大数、フィニッシュ以外なら、次の攻撃の名前変更
-    {
-        for (int i = 0; i < curretAttack.GetComponent<Kama_Compo>().slashself.Length; i++)
-        {
-            if (curretAttack.GetComponent<Kama_Compo>().slashself[i].WeaponName == Skillname)
-                curretAttack.GetComponent<Kama_Compo>().C_slashself[1] = curretAttack.GetComponent<Kama_Compo>().slashself[i];
-        }
-    }
 
 
     public Itemset ouptputstate()
@@ -89,16 +74,18 @@ public class AttackWrapper : MonoBehaviour
         return set;
     }
     public void firstframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent) {
-        if (curretAttack == null)
-            return;
+
         curretAttack.Firstframe(rb2d,  newHorizontalMovement,  animator,  parent);
         
     }
     public void updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent) {
+
         curretAttack.Updateframe (rb2d, newHorizontalMovement,  animator,  parent);
     }
 
     public void endframe(Animator animator) {
+        if (curretAttack == null)
+            return;
         curretAttack.EndFrame(animator);
     }
 
@@ -121,9 +108,9 @@ public class AttackWrapper : MonoBehaviour
         curretAttack.Air_Firstframe(rb2d,  newHorizontalMovement,  animator,  set, parent);
     }
 
-    public void Air_updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set)
+    public void Air_updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
-        curretAttack.Air_Updateframe( rb2d, newHorizontalMovement,  animator,  set);
+        curretAttack.Air_Updateframe( rb2d, newHorizontalMovement,  animator, parent);
     }
 
 
@@ -149,7 +136,7 @@ public class AttackWrapper : MonoBehaviour
 
     }
 
-    public virtual void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set)
+    public virtual void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
 
     }

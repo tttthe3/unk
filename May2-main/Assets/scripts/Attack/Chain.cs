@@ -37,7 +37,7 @@ public class Chain : Itemwrapper
 
 
 
-    public override void firstframeLeft(Rigidbody2D rb2d, Animator animator)
+    public override void firstframeLeft(Rigidbody2D rb2d, Animator animator, Transform parent)
     {
         lefttrigger = true;
         if (m_chaincheck == null)

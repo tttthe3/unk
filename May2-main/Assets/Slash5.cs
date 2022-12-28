@@ -13,7 +13,7 @@ public class Slash5 : SceneLinkedSMB<Charactercontrolelr>
         Debug.Log("fat333");
         EffectMaker.CCInstance.Initeffect(effect1, m_MonoBehaviour.GetPos());
         m_MonoBehaviour.skeletonAnimation.timeScale = 1.3f;
-        m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "slash10", false);
+        m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "slash12", false);
         timer = 0f;
         m_MonoBehaviour.updateface2();
         m_MonoBehaviour.Attackfirstframe();

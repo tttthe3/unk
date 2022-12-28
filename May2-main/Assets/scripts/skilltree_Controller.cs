@@ -36,6 +36,8 @@ public class skilltree_Controller : MonoBehaviour
     public AudioSource getaudio;
     public AudioSource moves;
     public AudioSource cantget;
+
+    public GameObject EqiipCOnfig;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,8 +112,12 @@ public class skilltree_Controller : MonoBehaviour
         if (Playerinput.Instance.Select_Hoz.Value == 0)
             cout1 = 0;
 
-        
-        
+        if (Playerinput.Instance.Skill2.Down)
+        {
+            EqiipCOnfig.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+
         skillinfo();
         Debug.Log(inputon);
         Debug.Log(duringmovie);
@@ -220,7 +226,7 @@ public class skilltree_Controller : MonoBehaviour
                 if (!duringmovie)
                 {
                     pickskill.transform.position = currentselect.transform.position;
-                   pickskill.transform.localScale = new Vector3(pickskill.transform.localScale.x + Time.deltaTime*1f, pickskill.transform.localScale.y + Time.deltaTime * 1f, 1);
+                   pickskill.transform.localScale = new Vector3(pickskill.transform.localScale.x + Time.unscaledDeltaTime * 1f, pickskill.transform.localScale.y + Time.unscaledDeltaTime * 1f, 1);
                 }
                 if (pickskill.transform.localScale.x>1.5)
                 {

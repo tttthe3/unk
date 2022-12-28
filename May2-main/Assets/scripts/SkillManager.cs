@@ -17,7 +17,15 @@ public class SkillManager : MonoBehaviour
     public Kama_Compo[] maf;
     public Kama_Compo[] special;
     public Kama_Compo[] chains;
+
+    public Kama_Compo[] air_defaultslash;
+    public Kama_Compo[] air_maf;
+    public Kama_Compo[] air_special;
+    public Kama_Compo[] air_chains;
+
     public Dictionary<string,Kama_Compo[]> list = new Dictionary<string, Kama_Compo[]>();  //slash mafrer special twinの各コンボセット　stringが一致するものをcurrentに設定したりする
+    public Dictionary<string, Kama_Compo[]> air_list = new Dictionary<string, Kama_Compo[]>();
+    public Dictionary<string, Kama_Compo[]> special_list = new Dictionary<string, Kama_Compo[]>();
     [SerializeField]
     private List<WeaponSKill> haveitemList = new List<WeaponSKill>();
 
@@ -29,8 +37,13 @@ public class SkillManager : MonoBehaviour
         Skillpoint = 11;
         list.Add("defaultslash",defaultslash);
         list.Add("maf", maf);
-        list.Add("chains", chains);
+        list.Add("knife", chains);
         list.Add("special", special);
+
+        air_list.Add("defaultslash", air_defaultslash);
+        air_list.Add("maf", air_maf);
+        air_list.Add("knife", air_chains);
+        air_list.Add("special", air_special);
     }
     public WeaponSKill GetSkill(string name)
     {
@@ -81,6 +94,22 @@ public class SkillManager : MonoBehaviour
 
         return comb;
         
+    }
+
+    public Kama_Compo[] air_GetCombs(string Wazamei)
+    {
+        air_list.TryGetValue(Wazamei, out Kama_Compo[] comb);
+
+        return comb;
+
+    }
+
+    public Kama_Compo[] special_GetCombs(string Wazamei)
+    {
+        list.TryGetValue(Wazamei, out Kama_Compo[] comb);
+
+        return comb;
+
     }
 
 

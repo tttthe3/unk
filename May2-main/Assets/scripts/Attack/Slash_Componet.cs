@@ -190,48 +190,9 @@ public class Slash_Componet : AttackWrapper
         }
     }
 
-    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set)
+    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
 
-        if (set == 1)
-        {
-            
-            //m_MonoBehaviour.UpdateJump();
-            timer += Time.deltaTime;
-            //Charactercontrolelr.CCInstance.loopAirHorizontalMovement(true, 1f);
-            //m_MonoBehaviour.AirborneVerticalMovement();
-
-            if (Charactercontrolelr.CCInstance.isWall)
-            {
-                Charactercontrolelr.CCInstance.wallrefect();
-            }
-
-            if (Charactercontrolelr.CCInstance.CheckForGrounded())
-            {
-                Debug.Log("go");
-                rb2d.gravityScale = 6f;
-                damages.enabled = false;
-                Charactercontrolelr.CCInstance.Jumpdown();
-                Charactercontrolelr.CCInstance.skeletonAnimation.timeScale = 1f;
-            }
-
-            //m_MonoBehaviour.getstate().Complete += delegate { m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "jumpdown", false);  } ;
-            if (timer > 0.6f)
-            {
-                rb2d.gravityScale = 6f;
-                damages.enabled = false;
-                Charactercontrolelr.CCInstance.Jumpdown();
-                timer = 0f;
-            }
-        }
-        else if (set == 2)
-        {
-
-        }
-        else if (set == 3)
-        {
-
-        }
     }
 
 }

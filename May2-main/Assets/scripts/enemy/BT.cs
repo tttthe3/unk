@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Spine.Unity;
+using Spine;
 namespace BTAI
 {
     public enum BTState
@@ -574,7 +575,7 @@ namespace BTAI
         public override BTState Tick()
         {
             if (set)
-                animator.CrossFadeInFixedTime(triggerName, 0.0f);
+                animator.CrossFadeInFixedTime(triggerName, 0.1f);
 
 
             return BTState.Success;

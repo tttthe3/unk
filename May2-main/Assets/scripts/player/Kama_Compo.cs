@@ -27,12 +27,13 @@ public class Kama_Compo : AttackWrapper
     public RandomAudioPlayer Slash_Special;
     // Start is called before the first frame update
     public Kama_Compo[] slashself;
-    public Kama_Compo[] slashself1;
-    public Kama_Compo[] slashself2;
-    public Kama_Compo[] slashself3;
+    public Kama_Compo[] special_slashself;
+    public Kama_Compo[] air_slashself;
+
     public Kama_Compo[] Power_slashself;
     private Kama_Compo currentslash = null;
     private Kama_Compo power_currentslash = null;
+    private Kama_Compo Air_currentslash = null;
     private Kama_Compo Nextslash = null;
     public Kama_Compo Attack_Nestslash;
     public Kama_Compo Intract_Nestslash;
@@ -75,6 +76,7 @@ public class Kama_Compo : AttackWrapper
         {
             Debug.Log(currentslash);
             currentslash.firstframes(rb2d, newHorizontalMovement, animator, parent);
+            Debug.Log("tr4");
         }
 
     }
@@ -96,7 +98,7 @@ public class Kama_Compo : AttackWrapper
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         currentslash.endframes();
         statechnager = true;
-        statechnager = true;
+
         if (statechnager)
         {
 
@@ -104,6 +106,8 @@ public class Kama_Compo : AttackWrapper
                 Debug.Log(statechnager);
                 for (int i = 0; i < slashself.Length; i++)
                 {
+                if (slashself[i] == null)
+                    return;
                     Debug.Log(currentslash.selfname);
                 
                     if (currentslash.nextname == slashself[i].selfname)
@@ -142,14 +146,33 @@ public class Kama_Compo : AttackWrapper
 
     public override void Air_Firstframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set, Transform parent)
     {
-      
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        if (clipInfo[0].clip.name == "idle")
+            Air_currentslash = air_slashself[0];
+        if (Air_currentslash == null)
+            Air_currentslash = air_slashself[0];
+
+        
+        {
+
+           Air_currentslash.air_firstframes(rb2d, newHorizontalMovement, animator, parent);
+            Debug.Log("tr4");
+        }
     }
 
-    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, int set)
+    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
 
-       
+        Debug.Log(currentslash);
+        //if (currentslash.statechnager)
+        {
+            Air_currentslash.air_updateframes(rb2d, newHorizontalMovement, animator, parent);
+            Debug.Log(currentslash);
+        }
+
     }
+
+
 
     public virtual void firstframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
@@ -160,6 +183,16 @@ public class Kama_Compo : AttackWrapper
     {
 
     }
+    public virtual void air_firstframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    {
+
+    }
+
+    public virtual void air_updateframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    {
+
+    }
+
 
     public virtual void Power_firstframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
