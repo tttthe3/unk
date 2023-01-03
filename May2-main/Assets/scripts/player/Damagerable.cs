@@ -54,7 +54,7 @@ public class Damagerable : MonoBehaviour, IDataPersister
         m_CurrentHealth = startingHealth;
 
         OnHealthSet.Invoke(this);
-
+        impulse = this.gameObject.GetComponent<Cinemachine.CinemachineImpulseSource>();
         DisableInvulnerability();
     }
 
@@ -66,7 +66,9 @@ public class Damagerable : MonoBehaviour, IDataPersister
     
 
     void Update()
+        
     {
+        
         if (m_Invulnerable)
         {
             m_InulnerabilityTimer -= Time.deltaTime;
@@ -100,8 +102,11 @@ public class Damagerable : MonoBehaviour, IDataPersister
         Debug.Log(m_CurrentHealth);
         if ((m_Invulnerable && !ignoreInvincible) || m_CurrentHealth <= 0)
             return;
+        
         if (damagedsound != null)
+
         {
+            Debug.Log("imp");
             damagedsound.PlayRandomSound();
             impulse.GenerateImpulse();
         }
@@ -116,7 +121,7 @@ public class Damagerable : MonoBehaviour, IDataPersister
         }
 
         m_DamageDirection = transform.position + (Vector3)centreOffset - damager.transform.position;
-
+        impulse.GenerateImpulse();
         OnTakeDamage.Invoke(damager, this);
         
         if (m_CurrentHealth <= 0)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Power_slash11 : SceneLinkedSMB<Charactercontrolelr>
 {
  
-    int m_HashAirborneMeleeAttackState = Animator.StringToHash("slash1");
+
     float timer;
     public GameObject effect1;
     public Vector3 effecthoise;
@@ -15,17 +15,11 @@ public class Power_slash11 : SceneLinkedSMB<Charactercontrolelr>
         m_MonoBehaviour.skeletonAnimation.timeScale = 1.5f;
         m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "BloodSlash2", false);
         timer = 0f;
-        //m_MonoBehaviour.Effectmaker2(effect1, effecthoise);
         EffectMaker.CCInstance.Initeffect(effect1, m_MonoBehaviour.GetPos());
 
     }
     public override void OnSLStatePostEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //m_MonoBehaviour.ForceNotHoldingGun();
-        //m_MonoBehaviour.EnableMeleeAttack();
-        Debug.Log("222");
-        m_MonoBehaviour.DelaySetMovement(new Vector2(20f,12f),0.3f) ;
-        Debug.Log("333");
 
     }
 

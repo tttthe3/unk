@@ -575,7 +575,7 @@ namespace BTAI
         public override BTState Tick()
         {
             if (set)
-                animator.CrossFadeInFixedTime(triggerName, 0.1f);
+                animator.CrossFadeInFixedTime(triggerName, 0f);
 
 
             return BTState.Success;

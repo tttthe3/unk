@@ -21,13 +21,14 @@ public class PowerSlash1 : Kama_Compo
         animator.CrossFadeInFixedTime("Powerslash_wait", 0f);
         DOVirtual.DelayedCall(0.4f, () => Playsound(m_sound.GetComponent<RandomAudioPlayer>()), false);
         PowerGage_Manager.Instance.Usepower();
+        DOTween.Sequence().Append(rb2d.transform.DOLocalMove(rb2d.transform.position + new Vector3(Charactercontrolelr.CCInstance.m_SpriteForward.x*3f, 7f, 0f), 0.5f)).Append(rb2d.transform.DOLocalMove(new Vector3(Charactercontrolelr.CCInstance.m_SpriteForward.x * 9f, -1f, 0f) + rb2d.transform.position, 0.3f));
     }
     public override void Power_updateframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
 
         chargetime += Time.deltaTime;
 
-        if (chargetime < .9f)
+        if (chargetime < 1.3f)
         {
             damagess.enabled = true;
         }
@@ -35,6 +36,7 @@ public class PowerSlash1 : Kama_Compo
         {
             animator.CrossFadeInFixedTime("idle", 0f);
             damagess.enabled = false;
+            chargetime = 0f;
         }
     }
 }

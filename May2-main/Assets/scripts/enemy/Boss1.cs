@@ -92,10 +92,16 @@ public class Boss1 : MonoBehaviour
     public Transform tukkleright;
 
     public GameObject punch;
+    public Transform HakkeiPos;
     public GameObject stamp;
     public Transform punchpos;
     public Transform stamppos;
     public DirectorTtrigger direc;
+
+    public Transform m_groundpos;
+    public float grounddis;
+    public LayerMask m_groundtype;
+    private bool isground;
 
     void start()
     {
@@ -103,6 +109,9 @@ public class Boss1 : MonoBehaviour
         s_boss1 = this;
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         rb2d.GetComponent<Rigidbody2D>();
+
+
+        
     }
 
     public void SetEllenFloor(bool onFloor)
@@ -137,16 +146,16 @@ public class Boss1 : MonoBehaviour
                 BT.If(GrenadeEnabled).OpenBranch(
                     BT.AniChange(animator, "cut")
                     ),
-                BT.Wait(9f),
+                BT.Wait(10f),
                 BT.Wait(delay),
                     BT.While(tailhappen).OpenBranch(
-                    BT.RandomSequence(new int[] { 1, 1, 1 }).OpenBranch(
+                    BT.RandomSequence(new int[] { 1, 1, 1 ,1}).OpenBranch(
                         BT.Root().OpenBranch(
-                            BT.AniChange(animator, "punch"),
+                            BT.AniChange(animator, "punch2"),
                             BT.Call(effectpunch),
                             BT.Wait(3f),
                             BT.AniChange(animator, "idle"),
-                            BT.Wait(1f)
+                            BT.Wait(3f)
                             ),
                         BT.Repeat(laserStrikeCount).OpenBranch(
                             BT.AniChange(animator, "kick"),
@@ -154,30 +163,33 @@ public class Boss1 : MonoBehaviour
                             BT.Call(Kicks),
                             BT.Wait(delay),
                             BT.AniChange(animator, "idle"),
-                            BT.Wait(1f)
+                            BT.Wait(3f)
                         ),
                         BT.Root().OpenBranch(
-                            BT.AniChange(animator, "jump"),
+                       BT.AniChange(animator, "jump"),
                             BT.Call(Jump1),
                             BT.Wait(delay),
                             BT.AniChange(animator, "jump2"),
                             BT.Call(Jump2),
                             BT.Wait(2f),
                             BT.Call(Jump3),
-                            BT.AniChange(animator, "idle")
+                            BT.AniChange(animator, "idle"),
+                             BT.Wait(3f)
                         ),
-                          BT.Root().OpenBranch(
-                            BT.AniChange(animator, "jump"),
-                            BT.Call(Jump1),
-                            BT.Wait(delay),
-                            BT.AniChange(animator, "jump2"),
-                             BT.Call(Jump2),
-                            BT.Wait(2f),
-                            BT.Call(Jump3),
-                            BT.AniChange(animator, "idle")
-                        )
+                        BT.Root().OpenBranch(
+                       BT.Call(Jump1),
+                         BT.Wait(delay),
+                         BT.Call(Jump2),
+                          BT.While(checkground).OpenBranch(
 
-                    ) //行動ループ
+                              ),
+                          BT.Call(Jump3),
+                           BT.AniChange(animator, "idle"),
+                            BT.Wait(3f)
+
+                        )
+                        )
+                    //行動ループ
                  //トリガー
                 ),
                 BT.AniChange(animator,"down"),
@@ -250,6 +262,12 @@ public class Boss1 : MonoBehaviour
         {
             Charactercontrolelr.CCInstance.damageable.OnDie.RemoveListener(PlayerDied);
         }
+    }
+
+    private bool checkground()
+    {
+        Debug.Log(isground);
+        return isground;
     }
 
     void PlayerDied(Damager d, Damagerable da)
@@ -355,8 +373,15 @@ public class Boss1 : MonoBehaviour
 
     void Update()
     {
-        ai.Tick();
 
+        Debug.Log( damageable.damagedsound);
+        isground = false;
+        ai.Tick();
+        RaycastHit2D hitss = Physics2D.Raycast(m_groundpos.position, Vector2.down, grounddis * 1f, m_groundtype);
+        if (hitss)
+            isground = true;
+
+        Debug.Log(isground);
         if (target != null)
         {
             Vector2 targetMovement = (Vector2)target.position - m_PreviousTargetPosition;
@@ -572,7 +597,7 @@ public class Boss1 : MonoBehaviour
     public void Kicks()
     {
         UpdateFacing();
-        skeletonAnimation.AnimationState.SetAnimation(0, "kick", false);
+        skeletonAnimation.AnimationState.SetAnimation(0, "slash", false);
     }
 
     IEnumerator   damagecolor()
@@ -581,6 +606,14 @@ public class Boss1 : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         skeletonAnimation.skeleton.SetColor(new Color(1f, 1f, 1f, 1f));
     }
+
+
+    public void jumps1()
+    {
+        DOTween.Sequence().SetDelay(1.1f)
+                          .Append(DOVirtual.DelayedCall(0f, () => rb2d.AddForce(new Vector2(50f * (target.transform.position.x - rb2d.transform.position.x), 1520f)), false));
+
+    } 
 
     public void Jump1()
     {
@@ -599,20 +632,32 @@ public class Boss1 : MonoBehaviour
         colid.size = new Vector2(8f,9f);
     }
 
+    public void jumps2()
+    {
+        rb2d.AddForce(new Vector2(0f, -10950f));
+        skeletonAnimation.AnimationState.SetAnimation(0, "jump2", false);
+    }
+
     public void Jump3()
     {
         colid.size = new Vector2(8f, 14f);
+        var p = Instantiate(stamp);
+        p.transform.position = stamppos.position;
+        punchsound.PlayDelayed(1.5f);
+        DOVirtual.DelayedCall(5f, () => desroyefffect(p));
     }
 
     public void effectpunch()
     {
         UpdateFacing();
-        skeletonAnimation.AnimationState.SetAnimation(0, "punch", false);
-        var p= Instantiate(punch);
-        p.transform.position = punchpos.position;
+        skeletonAnimation.timeScale = 2f;
+        skeletonAnimation.AnimationState.SetAnimation(0, "punch2", false);
+        GameObject p=null;
         punchsound.PlayDelayed(1.5f);
+        DOVirtual.DelayedCall(1.7f, () =>   p = Instantiate(punch,punchpos.position,Quaternion.identity));
         DOVirtual.DelayedCall(5f, () => desroyefffect(p));
-            }
+        skeletonAnimation.timeScale = 1.2f;
+    }
 
     public void effectstamp()
     {

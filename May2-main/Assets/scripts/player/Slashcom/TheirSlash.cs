@@ -14,7 +14,7 @@ public class TheirSlash : Kama_Compo
     // Start is called before the first frame update
     public override void firstframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
     {
-        Debug.Log("second33333");
+      
         currenttime = 0f;
         if (m_sound == null)
             m_sound = Instantiate(sounds, this.transform.position, Quaternion.identity);

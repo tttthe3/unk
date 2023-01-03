@@ -363,8 +363,7 @@ MonoBehaviour:
   m_Name: SpineAnimationStateClip
   m_EditorClassIdentifier: 
   template:
-    animationReference: {fileID: 11400000, guid: 9850134c32b7eda4bbccff20dc1b4216,
-      type: 2}
+    animationReference: {fileID: 0}
     loop: 0
     customDuration: 0
     useBlendDuration: 1
@@ -828,8 +827,7 @@ MonoBehaviour:
   m_Name: SpineAnimationStateClip
   m_EditorClassIdentifier: 
   template:
-    animationReference: {fileID: 11400000, guid: da791953433200b409348ddeaeeef7dc,
-      type: 2}
+    animationReference: {fileID: 0}
     loop: 0
     customDuration: 0
     useBlendDuration: 1
