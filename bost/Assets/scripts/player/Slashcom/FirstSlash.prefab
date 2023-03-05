@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7456117791399710962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7456117791399710960}
+  - component: {fileID: 7456117791399710963}
+  m_Layer: 0
+  m_Name: FirstSlash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7456117791399710960
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456117791399710962}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 0.85, y: 1.869999, z: 0.359649}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -790.7941, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7456117791399710963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456117791399710962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c9d99732c1b0f4986515f59b56f5f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: 0
+  Weapons: []
+  nextattck: {fileID: 11400000, guid: b49d061336e74f54193b9038cfed113c, type: 2}
+  damages: {fileID: 0}
+  sounds: {fileID: 1629125667670223217, guid: 07df4111867f9854f961486d77433064, type: 3}
+  Slash_first: {fileID: 0}
+  Slash_second: {fileID: 0}
+  Slash_Special: {fileID: 0}
+  slashself:
+  - {fileID: 7456117791399710963}
+  - {fileID: 2433359109615927398, guid: 66e6a9ccef4df774590bafb0b8f99562, type: 3}
+  - {fileID: 5784393824101768041, guid: f3bb1b63cc4df844ab4e5e2090d82bdf, type: 3}
+  special_slashself: []
+  air_slashself: []
+  Power_slashself: []
+  Attack_Nestslash: {fileID: 2433359109615927398, guid: 66e6a9ccef4df774590bafb0b8f99562,
+    type: 3}
+  Intract_Nestslash: {fileID: 0}
+  selfname: slash1
+  nextname: slash2
+  nextAttack_name:
+  - slash2
+  - slashup
+  - dash_slash
+  nextname2: 
+  C_slashself: []
+  Nextattackname: waza1

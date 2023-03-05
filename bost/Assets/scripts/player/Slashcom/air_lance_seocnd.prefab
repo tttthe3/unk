@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7248899552064436788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7248899552064436790}
+  - component: {fileID: 7248899552064436791}
+  m_Layer: 0
+  m_Name: air_lance_seocnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7248899552064436790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248899552064436788}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -586.884, y: -18.6, z: 0}
+  m_LocalScale: {x: 0.85, y: 1.8699993, z: 0.35964906}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7248899552064436791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248899552064436788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7bd23d97c0ea5448f38781d4277b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: 0
+  Weapons: []
+  nextattck: {fileID: 0}
+  damages: {fileID: 0}
+  sounds: {fileID: 1629125667670223217, guid: 07df4111867f9854f961486d77433064, type: 3}
+  Slash_first: {fileID: 0}
+  Slash_second: {fileID: 0}
+  Slash_Special: {fileID: 0}
+  slashself: []
+  special_slashself: []
+  air_slashself: []
+  Power_slashself: []
+  Attack_Nestslash: {fileID: 0}
+  Intract_Nestslash: {fileID: 0}
+  selfname: Air_lance_second
+  nextname: 
+  nextAttack_name: []
+  nextname2: 
+  C_slashself: []
+  Nextattackname: 

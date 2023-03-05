@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &812849191137257782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 812849191137257785}
+  - component: {fileID: 812849191137257784}
+  m_Layer: 0
+  m_Name: Slash1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &812849191137257785
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812849191137257782}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.85, y: 1.8699998, z: 0.35964912}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -586.884, y: -18.6}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &812849191137257784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812849191137257782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84544ab896db56e48bd321b865b76008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: 0
+  Weapons: []
+  leftitem: 
+  rightitem: 
+  nextattck: {fileID: 0}
+  damages: {fileID: 0}
+  sounds: {fileID: 0}
+  Slash_first: {fileID: 0}
+  Slash_second: {fileID: 0}
+  Slash_Special: {fileID: 0}
+  slashself:
+  - {fileID: 7456117791399710963, guid: 6076f1b30197f2b47a844bc54d529295, type: 3}
+  - {fileID: 2433359109615927398, guid: 66e6a9ccef4df774590bafb0b8f99562, type: 3}
+  - {fileID: 2443082386818974631, guid: a137a079fa576c847996e8db4b46eecc, type: 3}
+  - {fileID: 3689368840697199682, guid: 89747cc71bb1714418732adf3d2307a5, type: 3}
+  - {fileID: 6107805850599385353, guid: c63931149275ecc428093e1f30a2a5af, type: 3}
+  - {fileID: 6402373315092901780, guid: 468ddd7efa607004c957327e77a83e87, type: 3}
+  - {fileID: 0}
+  special_slashself: []
+  air_slashself:
+  - {fileID: 2872189970205641448, guid: dd4af7cc42dc2de4cb326f80a08b99d1, type: 3}
+  - {fileID: 2588780897909959928, guid: 54392e13dc89c5e40b73ca7722d35ee5, type: 3}
+  - {fileID: 844565543786279941, guid: ede02fbdb827d324387635ee2b9731fa, type: 3}
+  - {fileID: -6647202358859436949, guid: d05072f9e3d3ae349b41b3b1625c241d, type: 3}
+  Power_slashself:
+  - {fileID: 7107010690077267006, guid: 41a9b57794f5ed1438e8d0b0c2586abe, type: 3}
+  - {fileID: 7513050500712239280, guid: 4faa5875c48faf54bb56052254b48372, type: 3}
+  - {fileID: 0}
+  Attack_Nestslash: {fileID: 0}
+  Intract_Nestslash: {fileID: 0}
+  selfname: 
+  nextname: 
+  nextAttack_name: []
+  defalutfirst: {fileID: 7456117791399710963, guid: 6076f1b30197f2b47a844bc54d529295,
+    type: 3}
+  nextname2: 
+  C_slashself: []
