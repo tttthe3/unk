@@ -38,6 +38,9 @@ public class skilltree_Controller : MonoBehaviour
     public AudioSource cantget;
 
     public GameObject EqiipCOnfig;
+
+    public GameObject Leftweapon;
+    public GameObject Righttweapon;
     // Start is called before the first frame update
     void Start()
     {

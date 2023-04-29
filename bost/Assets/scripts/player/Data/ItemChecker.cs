@@ -30,14 +30,22 @@ public class ItemChecker : MonoBehaviour
             {
                 ItemDataBase.Instance.AddItem(Iteminfromation);
                 Itemicon.sprite = Iteminfromation.GetSprite();
-                
+
                 text1.text = Iteminfromation.getinfomation();
                 text2.text = Iteminfromation.getitemname();
                 //InputStop();
                 Itemget.Invoke();
             }
             else
-                ItemDataBase.Instance.AddItem_Use(Iteminfromation);
+            {
+                ItemDataBase.Instance.AddItem(Iteminfromation);
+                Itemicon.sprite = Iteminfromation.GetSprite();
+
+                text1.text = Iteminfromation.getinfomation();
+                text2.text = Iteminfromation.getitemname();
+                //InputStop();
+                Itemget.Invoke();
+            }
 
         }
     }

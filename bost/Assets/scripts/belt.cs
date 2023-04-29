@@ -15,10 +15,10 @@ public class belt : MonoBehaviour
     {
         if (body == null)
             return;
-        body = collision.GetComponent<Transform>();
+        //body = collision.GetComponent<Transform>();
         rb2d = collision.GetComponent<Rigidbody2D>();
         on = true;
-        current = body;
+        //current = body;
         Vector3 force = new Vector3(-4f,0,0);
         rb2d.AddForce(force);
         //Vector3 move = new Vector3(body.position.x+0.1f, body.position.y, body.position.z);
@@ -30,10 +30,10 @@ public class belt : MonoBehaviour
     {
         if (collision.gameObject.tag != "Player")
         {
-            body = collision.gameObject.GetComponent<Transform>();
+           // body = collision.gameObject.GetComponent<Transform>();
             rb2d = collision.gameObject.GetComponent<Rigidbody2D>();
             on = true;
-            current = body;
+          //  current = body;
 
             //rb2d.AddForce(force);
             rb2d.velocity = velocrity;

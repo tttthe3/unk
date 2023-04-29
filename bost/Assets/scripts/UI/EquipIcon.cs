@@ -17,12 +17,19 @@ public class EquipIcon : MonoBehaviour
     public GameObject upicon;
     public GameObject downicon;
     public WeaponSKill skill;
+    public CreateItem Itemdata;
     public WeaponSKill triggerskill;
     public string skillname;
     public Image selfImage;
     public GameObject myskilltree;
         private void OnEnable()
         {
+        if(ItemDataBase.Instance.HasItem(skillname))
+            if (C_icontype == Icontyepe.Sub)
+            {
+                Debug.Log("find");
+                currenticon.sprite = ItemDataBase.Instance.GetItemData(skillname).GetSprite();
+            }
             //トリガーとなるスキルを持ってたら色は変えないが選択可能にする。ポイントの質問が出る
             //currenticon= skill.GetIcon();
            // if (triggerskill.Getflag())
