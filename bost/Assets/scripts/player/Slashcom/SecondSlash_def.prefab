@@ -66,3 +66,5 @@ MonoBehaviour:
   nextname2: 
   C_slashself: []
   Nextattackname: 
+  effects: {fileID: 2499323998038394950, guid: 3ce1ab052598b0747b56cfefb62b4665, type: 3}
+  effectpos: {x: 0, y: 0, z: 0}

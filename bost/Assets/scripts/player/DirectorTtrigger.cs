@@ -27,21 +27,27 @@ using UnityEngine.Playables;
         public Flag_content BeforeMovieFlag;
         protected bool m_AlreadyTriggered;
         public GameObject Nextmovie;
-         public ObjectFlag flags;
+         public StoryFlag flags;
 
     void Start()
     {
-        if (finishflag.flag == true)
+        Debug.Log(this.gameObject.name);
+        if (flags.GetFlag() == true)
         {
             director.time = director.duration;
             OnDirectorPlay = null;
             this.gameObject.SetActive(false);
         }
+
+
     }
         void OnEnable()
         {
             PersistentDataManager.RegisterPersister(this);
-        
+
+        if (triggercondtion == triggercond.continues)
+            StartCoroutine(startMovie(5));
+
     }
 
         void OnDisable()
@@ -49,11 +55,16 @@ using UnityEngine.Playables;
             PersistentDataManager.UnregisterPersister(this);
         }
 
+    public void delaystart()
+    {
+        
+    }
+
     void Update()
     {
         
         {
-            //director.Pause();
+            Debug.Log(this.gameObject.name);
         }
         
 
@@ -63,7 +74,7 @@ using UnityEngine.Playables;
 
     public void Eventcall()
     {
-        if (!finishflag.flag)
+        if (!flags.GetFlag())
         {
             director.Play();
             m_AlreadyTriggered = true;
@@ -80,8 +91,7 @@ using UnityEngine.Playables;
                 return;
             Debug.Log("play");
             Debug.Log(triggerType);
-            Debug.Log(finishflag.flag);
-            if (triggerType == TriggerType.Once && m_AlreadyTriggered||finishflag.flag)
+            if (triggerType == TriggerType.Once && m_AlreadyTriggered|| flags.GetFlag())
                 return;
 
             Debug.Log("play");
@@ -123,8 +133,8 @@ using UnityEngine.Playables;
         if (flags != null)
         {
             flags.SetFlag();
-            Story_FlagList.Instance.FlagAllLoad();
-            Story_FlagList.Instance.SetActive_Event();
+            //Story_FlagList.Instance.FlagAllLoad();
+           // Story_FlagList.Instance.SetActive_Event();
         }
     }
 
@@ -194,5 +204,10 @@ using UnityEngine.Playables;
     {
         director.Play();
         //StartCoroutine(startMovie(4));
+    }
+
+    public void timescalecontroller(float time)
+    {
+        
     }
 }

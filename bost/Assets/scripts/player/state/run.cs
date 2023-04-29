@@ -12,7 +12,7 @@ public class run : SceneLinkedSMB<Charactercontrolelr>
     }
     public override void OnSLStatePostEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        m_MonoBehaviour.skeletonAnimation.timeScale = 0.85f;
+        m_MonoBehaviour.skeletonAnimation.timeScale = 0.95f;
         //m_MonoBehaviour.skeletonAnimation.AnimationState.SetAnimation(0, "idle_none", true);
         m_MonoBehaviour.runset();
     }
@@ -61,7 +61,7 @@ public class run : SceneLinkedSMB<Charactercontrolelr>
         }
 
         if (Playerinput.Instance.Intract.Down)
-            m_MonoBehaviour.Attackfirstframe_air_Gun();
+            m_MonoBehaviour.Attackfirstframe_Gun();
 
         m_MonoBehaviour.Attackupdateframe_Gun();
 

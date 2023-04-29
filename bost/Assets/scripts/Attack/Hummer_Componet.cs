@@ -165,7 +165,7 @@ public class Hummer_Componet :AttackWrapper
         }
     }
 
-    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent, SkeletonAnimation skeletonAnimation)
     {
 
 

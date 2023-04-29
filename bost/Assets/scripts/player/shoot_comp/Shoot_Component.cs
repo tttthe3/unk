@@ -110,13 +110,13 @@ public class Shoot_Component : AttackWrapper
         }
     }
 
-    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    public override void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent, SkeletonAnimation skeletonAnimation)
     {
 
 
         //if (currentslash.statechnager)
         {
-            Air_currentslash.air_updateframes(rb2d, newHorizontalMovement, animator, parent);
+            Air_currentslash.air_updateframes(rb2d, newHorizontalMovement, animator, parent,  skeletonAnimation);
 
         }
         Debug.Log(Air_currentslash);
@@ -145,7 +145,7 @@ public class Shoot_Component : AttackWrapper
 
     }
 
-    public virtual void air_updateframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    public virtual void air_updateframes(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent, SkeletonAnimation skeletonAnimation)
     {
 
     }

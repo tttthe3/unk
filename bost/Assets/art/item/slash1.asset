@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: slash1
   m_EditorClassIdentifier: 
   kindofItem: 0
-  icon: {fileID: 21300000, guid: 6e588f7a2e312584b8502db775a40a20, type: 3}
-  Itemname: slash1
+  icon: {fileID: 21300000, guid: 91707bcfcbe42894bb6fff352b5b2e82, type: 3}
+  Itemname: defaultslash
   information: "\u5927\u578B\u306E\u938C\u3002\u30B5\u30A4\u30BA\u306E\u5272\u306B\u8EFD\u91CF\u306E\u305F\u3081\u3001\u9023\u7D9A\u653B\u6483\u304C\u53EF\u80FD"
   groundeffect: {fileID: 2192677369059963100, guid: 9643b97d9d78fd74788dada57b34e27b,
     type: 3}

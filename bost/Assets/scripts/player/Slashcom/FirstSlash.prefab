@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   set: 0
   Weapons: []
+  leftitem: 
+  rightitem: 
   nextattck: {fileID: 11400000, guid: b49d061336e74f54193b9038cfed113c, type: 2}
   damages: {fileID: 0}
   sounds: {fileID: 1629125667670223217, guid: 07df4111867f9854f961486d77433064, type: 3}
@@ -72,6 +74,8 @@ MonoBehaviour:
   - slash2
   - slashup
   - dash_slash
+  defalutfirst: {fileID: 0}
   nextname2: 
   C_slashself: []
   Nextattackname: waza1
+  effects: {fileID: 3712838021293614747, guid: 8dfdf24be93ce7942bb56102db043e7b, type: 3}

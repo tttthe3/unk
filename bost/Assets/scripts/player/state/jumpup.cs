@@ -73,6 +73,10 @@ public class jumpup : SceneLinkedSMB<Charactercontrolelr>
             m_MonoBehaviour.Gakegrap();
 
         m_MonoBehaviour.upthrouground();
+        if (Playerinput.Instance.Intract.Down)
+            m_MonoBehaviour.Attackfirstframe_Gun();
+
+        m_MonoBehaviour.Attackupdateframe_Gun();
 
         //m_MonoBehaviour.grapplestart();
     }

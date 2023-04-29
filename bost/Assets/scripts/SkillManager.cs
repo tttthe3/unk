@@ -41,7 +41,6 @@ public class SkillManager : MonoBehaviour
     void Start()
     {
         s_SkillBase = this;
-        Debug.Log(Slash[0]);
         Skillpoint = 11;
         list.Add("defaultslash",defaultslash);
         list.Add("maf", maf);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85c0831d6f54a947b53ee19bc03cb02, type: 3}
   m_Name: open3
   m_EditorClassIdentifier: 
-  flag: 1
+  flag: 0
   Talktype:
     counter: 
     countertype: 

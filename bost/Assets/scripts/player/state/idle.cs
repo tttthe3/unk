@@ -83,7 +83,7 @@ public class idle : SceneLinkedSMB<Charactercontrolelr>
         }
 
         if (Playerinput.Instance.Intract.Down)
-            m_MonoBehaviour.Attackfirstframe_air_Gun();
+            m_MonoBehaviour.Attackfirstframe_Gun();
 
         m_MonoBehaviour.Attackupdateframe_Gun();
 

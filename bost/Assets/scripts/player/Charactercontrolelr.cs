@@ -342,6 +342,16 @@ public class Charactercontrolelr : MonoBehaviour
 
     }
 
+    public void animstop()
+    {
+        animator.CrossFadeInFixedTime("Duringmovie", 0f);
+    }
+    public void animstart()
+    {
+        animator.CrossFadeInFixedTime("idle", 0f);
+    }
+
+
     public void UnpauseSave()
     {
         if (Time.timeScale > 0f)
@@ -721,7 +731,7 @@ public class Charactercontrolelr : MonoBehaviour
     }
     public void Attackupdatefram_air()
     {
-        AttackWrapper.Instance.Air_updateframe(rb2d, 2f, animator, this.gameObject.transform);
+        AttackWrapper.Instance.Air_updateframe(rb2d, 2f, animator, this.gameObject.transform,  skeletonAnimation);
     }
     public void Attackendframe_air()
     {
@@ -785,7 +795,7 @@ public class Charactercontrolelr : MonoBehaviour
     public void runset()
     {
        
-            skeletonAnimation.AnimationState.SetAnimation(0, "run", true);
+            skeletonAnimation.AnimationState.SetAnimation(0, "run_none", true);
         
     }
 

@@ -45,21 +45,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   set: 0
   Weapons: []
-  WeaponName: 
-  Slash: {fileID: 0}
-  lance: {fileID: 0}
-  Humer: {fileID: 0}
+  leftitem: 
+  rightitem: 
   nextattck: {fileID: 11400000, guid: 4700b76ed00acbb439bbbd1e87033555, type: 2}
   damages: {fileID: 0}
-  chargetime: 0
   sounds: {fileID: 1629125667670223217, guid: 07df4111867f9854f961486d77433064, type: 3}
   Slash_first: {fileID: 0}
   Slash_second: {fileID: 0}
   Slash_Special: {fileID: 0}
   slashself: []
+  special_slashself: []
+  air_slashself: []
+  Power_slashself: []
   Attack_Nestslash: {fileID: 0}
   Intract_Nestslash: {fileID: 0}
   selfname: slash4
   nextname: slas4
+  nextAttack_name: []
+  defalutfirst: {fileID: 0}
   nextname2: 
+  C_slashself: []
   Nextattackname: 
+  effects: {fileID: 4575701369091799999, guid: d49fe2b72bd0f4842baa8c0ad04bd8ba, type: 3}
+  effectpos: {x: -306.47012, y: -30.803902, z: 0}

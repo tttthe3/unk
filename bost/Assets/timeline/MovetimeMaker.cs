@@ -69,7 +69,7 @@ public class MovetimeMaker : MonoBehaviour
 
     void Update()
     {
-
+        Debug.Log(this.gameObject.name);
 
         if (playableDirector.state == PlayState.Paused && Playerinput.Instance.Intract.Down&& State == state.pause)
         {

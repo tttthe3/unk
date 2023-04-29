@@ -11,7 +11,7 @@ public class AttackAfter_ground : SceneLinkedSMB<Charactercontrolelr>
     {
        // EffectMaker.CCInstance.Initeffect(effect1, m_MonoBehaviour.GetPos());
        
-        m_MonoBehaviour.updateface2();
+        //m_MonoBehaviour.updateface2();
         m_MonoBehaviour.Attackfirstframe();
     }
     public override void OnSLStatePostEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

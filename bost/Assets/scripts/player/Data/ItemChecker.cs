@@ -20,7 +20,7 @@ public class ItemChecker : MonoBehaviour
     private bool Endtrigger = false;
     public RandomAudioPlayer sound1;
     public RandomAudioPlayer sound2;
-    public ObjectFlag storyFlag;
+    public StoryFlag storyFlag;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -57,7 +57,7 @@ public class ItemChecker : MonoBehaviour
                 {
                     storyFlag.SetFlag();
                    // Story_FlagList.Instance.InitEvent();
-                    Story_FlagList.Instance.SetActive_Event();
+                    //Story_FlagList.Instance.SetActive_Event();
                 }
 
             }

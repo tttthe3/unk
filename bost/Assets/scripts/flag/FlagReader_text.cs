@@ -8,10 +8,11 @@ public class FlagReader_text : MonoBehaviour
 
     public Flag_content_List refList;
     public Flag_content[] refcontent;
+    public StoryFlag[] Needflag; 
     public enum eventtype { text,init,destroy};
     public eventtype[] Eventtype;
     public TextEvent initevent; //このフラグリストからおこしうるイベント数
-    public bool istrigger = false;
+    public bool istrigger =false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,5 +30,28 @@ public class FlagReader_text : MonoBehaviour
                Event_Wrapper.Instance.TextChange(initevent.Gettargetname(), initevent.GetTextref());
             }
         }
+    }
+
+    public void flagaction()
+    {
+        for(int i=0;i<Needflag.Length; i++)
+        {
+            if (Needflag[i].GetFlag() == false)
+                return;
+            else
+            {
+                if(i==Needflag.Length-1)
+                istrigger = true;
+            }
+        }
+
+        if(istrigger==true)
+        {
+
+
+
+
+        }
+
     }
 }

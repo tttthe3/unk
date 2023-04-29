@@ -210,10 +210,10 @@ public class AttackWrapper : MonoBehaviour
         curretAttack.Air_Firstframe(rb2d,  newHorizontalMovement,  animator,  set, parent, skeletonAnimation);
     }
 
-    public void Air_updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    public void Air_updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent, SkeletonAnimation skeletonAnimation)
     {
         Debug.Log(curretAttack);
-        curretAttack.Air_Updateframe( rb2d, newHorizontalMovement,  animator, parent);
+        curretAttack.Air_Updateframe( rb2d, newHorizontalMovement,  animator, parent,  skeletonAnimation);
     }
     public void air_endframe(Animator animator)
     {
@@ -244,7 +244,7 @@ public class AttackWrapper : MonoBehaviour
 
     }
 
-    public virtual void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent)
+    public virtual void Air_Updateframe(Rigidbody2D rb2d, float newHorizontalMovement, Animator animator, Transform parent, SkeletonAnimation skeletonAnimation)
     {
 
     }

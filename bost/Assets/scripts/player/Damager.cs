@@ -54,7 +54,7 @@ public class Damager : MonoBehaviour
     public float fixdamagetimer=0.4f;
     public float hituppower;
     public float hittimer;
-    public enum movestate { up,next,diagonal,none}
+    public enum movestate { up,next,diagonal,none,hold}
     public float force;
     public bool rengeki;
     public bool damagemove;
@@ -159,7 +159,7 @@ public class Damager : MonoBehaviour
                 OnDamageableHit.Invoke(this, damageable);
                 damageable.TakeDamage(this, ignoreInvincibility);
                 if (damagemove)
-                    damageable.damagemove2(havemove,this);
+                    damageable.damagemove3(havemove,this);
                 if (disableDamageAfterHit)
                     DisableDamage();
                 hitcheck = false;

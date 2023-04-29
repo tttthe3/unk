@@ -43,6 +43,10 @@ public class jumpdown : SceneLinkedSMB<Charactercontrolelr>
             m_MonoBehaviour.Attackfirstframe_air();
         }
         m_MonoBehaviour.groiundfilter();
+        if (Playerinput.Instance.Intract.Down)
+            m_MonoBehaviour.Attackfirstframe_Gun();
+
+        m_MonoBehaviour.Attackupdateframe_Gun();
     }
 
     public override void OnSLStatePreExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -60,7 +60,8 @@ MonoBehaviour:
   Slash_Special: {fileID: 0}
   slashself:
   - {fileID: 2981727874643861248, guid: 09f6eef0a60dc7f4dad4d448edfb18ef, type: 3}
-  air_slashself: []
+  air_slashself:
+  - {fileID: 656162148987315163, guid: 66ffe225c6fe5e645b95165276a450ea, type: 3}
   Power_slashself: []
   selfname: 
   nextname: 

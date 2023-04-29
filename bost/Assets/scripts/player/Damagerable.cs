@@ -141,15 +141,17 @@ public class Damagerable : MonoBehaviour, IDataPersister
         }
     }
 
-    public void damagemove(Damager.movestate state)
+    public void damagemove(Damager.movestate state, Damager damager)
     {
         Debug.Log(this.gameObject.transform);
         if (state == Damager.movestate.up)
-            this.gameObject.transform.DOMove(new Vector3(0f, 10f, 0f), 1).SetRelative(true);
+            this.gameObject.transform.DOLocalMove(this.transform.position + new Vector3(0f, 10f, 0f), 1);
         else if (state == Damager.movestate.next)
-            this.gameObject.transform.DOMove(new Vector3(2f * Charactercontrolelr.CCInstance.m_SpriteForward.x, 0f, 0f), 1).SetRelative(true);
+            this.gameObject.transform.DOLocalMove(this.transform.position + new Vector3(1f * Charactercontrolelr.CCInstance.m_SpriteForward.x, 0f, 0f), 1);
         else if (state == Damager.movestate.diagonal)
-            this.gameObject.transform.DOMove(new Vector3(2f * Charactercontrolelr.CCInstance.m_SpriteForward.x, 4f, 0f), 1).SetRelative(true);
+            this.gameObject.transform.DOLocalMove(this.transform.position + new Vector3(4f * Charactercontrolelr.CCInstance.m_SpriteForward.x, 4f, 0f), 1);
+        else if (state == Damager.movestate.hold)
+            this.gameObject.transform.DOLocalMove(this.transform.position + new Vector3(1f * Charactercontrolelr.CCInstance.m_SpriteForward.x, 1f, 0f), 1);
         else if (state == Damager.movestate.none)
         { }
 
@@ -168,7 +170,32 @@ public class Damagerable : MonoBehaviour, IDataPersister
         { }
 
     }
-    
+
+    public void damagemove3(Damager.movestate state, Damager damager)
+    {
+        Debug.Log(this.gameObject.transform);
+        if (state == Damager.movestate.up)
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 10f);
+        }
+        else if (state == Damager.movestate.next)
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            this.gameObject.GetComponent<Rigidbody2D>().velocity=(new Vector2(Charactercontrolelr.CCInstance.m_SpriteForward.x * damager.force, 0f));
+        }
+        else if (state == Damager.movestate.diagonal)
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = (new Vector2(Charactercontrolelr.CCInstance.m_SpriteForward.x * 20f, 10f));
+        }
+        else if (state == Damager.movestate.hold)
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+        else if (state == Damager.movestate.none)
+        { }
+
+    }
+
     public void fixdamagetimer(Damager damager)
     {
         if(damager.fixdamagetimer!=0f)

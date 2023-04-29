@@ -65,3 +65,7 @@ MonoBehaviour:
   nextname: 
   Nextattackname: 
   chargeffects: {fileID: 0}
+  effects: {fileID: 4040797343535905238, guid: 63cd04cd761dad24ba8c1186603a3142, type: 3}
+  shotorb: {fileID: 3336715418688290650, guid: 616f898efacb6a4448e20f7752927f9b, type: 3}
+  effectpos: {x: 0, y: 0, z: 0}
+  otbpos: {x: -1.09, y: -1.03, z: 0}

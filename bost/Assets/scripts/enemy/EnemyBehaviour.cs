@@ -15,6 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
     public int gemcount=1;
     public DirectorTtrigger special; //ダウン時に再生する
     public Transform Player;
+    public string Armdirec;
+    public float arimlimit;
+    public Damager Arm;
         static Collider2D[] s_ColliderCache = new Collider2D[16];
     private bool second;
         public Vector3 moveVector { get { return m_MoveVector; } }
@@ -119,7 +122,7 @@ public class EnemyBehaviour : MonoBehaviour
             m_Collider = GetComponent<Collider2D>();
             m_Animator = GetComponent<Animator>();
             m_SpriteRenderer = GetComponent<MeshRenderer>();
-      
+        Debug.Log(m_Animator);
        
         skeletonAnimation = GetComponent<Spine.Unity.SkeletonAnimation>();
         //if (projectilePrefab != null)
@@ -147,7 +150,9 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void Start()
         {
-        
+        Arm = transform.Find(Armdirec).GetComponent<Damager>();
+        Arm.enabled = false;
+        m_Animator = GetComponent<Animator>();
         SceneLinkedSMB<EnemyBehaviour>.Initialise(m_Animator, this);
         //m_OriginalColor = skeletonAnimation.skeleton.GetColor();  //1
         m_LocalBounds = new Bounds();
@@ -175,14 +180,14 @@ public class EnemyBehaviour : MonoBehaviour
 
         //m_Animator.SetBool(m_HashGroundedPara, m_CharacterController2D.IsGrounded);
         isGround = false;
-        RaycastHit2D hitss = Physics2D.Raycast(this.transform.position, Vector2.down, 2.5f, Ground);
+        RaycastHit2D hitss = Physics2D.Raycast(this.transform.position, Vector2.down, 3f, Ground);
         if (hitss) isGround = true;
     }
 
     public void damagedground()
     {
         if (isGround) {  AnimatorClipInfo[] clipInfo = m_Animator.GetCurrentAnimatorClipInfo(0);
-        if (clipInfo[0].clip.name == "Zon_damaged2")
+        if (clipInfo[0].clip.name == Plusstatename+"damaged2")
         {
             m_Animator.CrossFadeInFixedTime(Plusstatename + "damaged_up", 0f);
             //setSKelAnimation("walk");
@@ -211,11 +216,7 @@ public class EnemyBehaviour : MonoBehaviour
                 m_FireTimer -= Time.deltaTime;
         }
 
-        public void SetHorizontalSpeed(float horizontalSpeed)
-        {
-            m_MoveVector.x = horizontalSpeed * m_SpriteForward.x;
-        }
-
+       
         public bool CheckForObstacle(float forwardDistance)
         {
             //we circle cast with a size sligly small than the collider height. That avoid to collide with very small bump on the ground
@@ -237,7 +238,7 @@ public class EnemyBehaviour : MonoBehaviour
             return false;
         }
 
-        public void SetFacingData(int facing)
+        public void SetFacingData(float facing)
         {
         if (facing == -1)
         {
@@ -266,7 +267,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Vector3 targetvelocity = new Vector2(1f * 23f, rb2d.velocity.y);
         //rb2d.velocity = Vector3.SmoothDamp(rb2d.velocity, targetvelocity, ref velocity, 0.05f);
-        rb2d.velocity = new Vector2(m_SpriteForward.x* 3f, 0f);
+        rb2d.velocity = new Vector2(m_SpriteForward.x* 3f*speed, 0f);
 
         //rb2d.gravityScale = 6f;
         //rb2d.velocity = new Vector2(transform.localScale.x * maxSpeed*Playerinput.Instance.Horizontal.Value*speedScale, 0);　地面移動
@@ -314,7 +315,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         find = true;
         AnimatorClipInfo[] clipInfo = m_Animator.GetCurrentAnimatorClipInfo(0);
-        if (clipInfo[0].clip.name != "Zon_walk")
+        Debug.Log(clipInfo.Length);
+        if (clipInfo[0].clip.name != Plusstatename + "walk")
         {
             m_Animator.CrossFadeInFixedTime(Plusstatename + "walk", 0f);
             setSKelAnimation("walk");
@@ -330,7 +332,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
             {
-                SetFacingData(Mathf.RoundToInt(-m_SpriteForward.x));
+                SetFacingData(Mathf.Sign(-m_SpriteForward.x));
             }
         }
 
@@ -356,7 +358,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
          Debug.Log(toTarget);
 
-        if (m_TimeSinceLastTargetView <= 0.0f) //資格外になって十分時間たったらidleにする
+        if (m_TimeSinceLastTargetView <= 0.0f) //視覚外になって十分時間たったらidleにする
             {
             Debug.Log("forg");
                 ForgetTarget();
@@ -551,7 +553,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         public void Die(Damager damager, Damagerable damageable)
         {
-        setSKelAnimation("dead");
+        //setSKelAnimation("dead");
         m_Animator.CrossFadeInFixedTime(Plusstatename + "dead", 0f);
         Vector2 throwVector = new Vector2(0, 2.0f);
             Vector2 damagerToThis = damager.transform.position - transform.position;
@@ -578,7 +580,7 @@ public class EnemyBehaviour : MonoBehaviour
                 return;
 
         AnimatorClipInfo[] clipInfo = m_Animator.GetCurrentAnimatorClipInfo(0);
-        if (clipInfo[0].clip.name == "Zon_damaged")
+        if (clipInfo[0].clip.name == Plusstatename + "damaged")
         {
             Debug.Log("hittt");
             damagereset = true;

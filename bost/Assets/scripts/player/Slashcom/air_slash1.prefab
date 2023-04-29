@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   set: 0
   Weapons: []
+  leftitem: 
+  rightitem: 
   nextattck: {fileID: 0}
   damages: {fileID: 0}
   sounds: {fileID: 1629125667670223217, guid: 07df4111867f9854f961486d77433064, type: 3}
@@ -60,6 +62,9 @@ MonoBehaviour:
   selfname: air_slash1
   nextname: air_slash3
   nextAttack_name: []
+  defalutfirst: {fileID: 0}
   nextname2: air_slash3
   C_slashself: []
   Nextattackname: 
+  effects: {fileID: 994723773250576806, guid: ee9d43b2e58e9e841ab3db3afe0d57bb, type: 3}
+  effectpos: {x: 0, y: 0, z: 0}

@@ -49,6 +49,9 @@ public class Weapon_Config : MonoBehaviour
     public GameObject MaiselectText_Left;
     public GameObject MaiselectText_Right;
 
+    public Image currenitemicon;
+
+
     private void Start()
     {
         states = States.None;
@@ -64,7 +67,7 @@ public class Weapon_Config : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //if (!currentselect.GetComponent<EquipIcon>().Getskilltree().activeSelf&&states==States.Skilltree)
            // states = States.None;
 
@@ -129,6 +132,8 @@ public class Weapon_Config : MonoBehaviour
             currentselect.GetComponent<Image>().DOColor(new Color(0.4f,0.4f,0.4f,0.5f), 0f);
             currentselect = currentselect.GetComponent<EquipIcon>().Getupicon();
 
+          //  if (ItemDataBase.Instance.HasItem( currentselect.GetComponent<EquipIcon>().Getskillnamel()))
+                currenitemicon.sprite=ItemDataBase.Instance.GetItemData(currentselect.GetComponent<EquipIcon>().Getskillnamel()).GetSprite();
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
             defpos = currentselect.transform;
@@ -160,7 +165,8 @@ public class Weapon_Config : MonoBehaviour
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(new Color(0.4f, 0.4f, 0.4f, 0.5f), 0f);
             currentselect = currentselect.GetComponent<EquipIcon>().Getdownicon();
-
+            //if (ItemDataBase.Instance.HasItem(currentselect.GetComponent<EquipIcon>().Getskillnamel()))
+                currenitemicon.sprite = ItemDataBase.Instance.GetItemData(currentselect.GetComponent<EquipIcon>().Getskillnamel()).GetSprite();
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
             defpos = currentselect.transform;
@@ -194,7 +200,8 @@ public class Weapon_Config : MonoBehaviour
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(new Color(0.4f, 0.4f, 0.4f, 0.5f), 0f);
             currentselect = currentselect.GetComponent<EquipIcon>().Getrighticon();
-
+            //if (ItemDataBase.Instance.HasItem(currentselect.GetComponent<EquipIcon>().Getskillnamel()))
+                currenitemicon.sprite = ItemDataBase.Instance.GetItemData(currentselect.GetComponent<EquipIcon>().Getskillnamel()).GetSprite();
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
             defpos = currentselect.transform;
@@ -214,7 +221,8 @@ public class Weapon_Config : MonoBehaviour
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(new Color(0.4f, 0.4f, 0.4f, 0.5f), 0f);
             currentselect = currentselect.GetComponent<EquipIcon>().Getlefticon();
-
+           // if (ItemDataBase.Instance.HasItem(currentselect.GetComponent<EquipIcon>().Getskillnamel()))
+                currenitemicon.sprite = ItemDataBase.Instance.GetItemData(currentselect.GetComponent<EquipIcon>().Getskillnamel()).GetSprite();
             currentselect.GetComponent<Image>().DOPause();
             currentselect.GetComponent<Image>().DOColor(Color.white, 0.1f);
             defpos = currentselect.transform;

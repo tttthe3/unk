@@ -23,6 +23,7 @@ public class sit : SceneLinkedSMB<EnemyBehaviour>
           
 
      m_MonoBehaviour.ScanForPlayer();
+     m_MonoBehaviour.OrientToTarget();
     }
 
 
